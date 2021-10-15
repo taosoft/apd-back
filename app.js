@@ -4,6 +4,7 @@ const logger = require('morgan');
 
 const usersRouter = require('./routes/users');
 const reclamosRouter = require('./routes/reclamos');
+const denunciasRouter = require('./routes/denuncias');
 
 const app = express();
 
@@ -14,5 +15,6 @@ app.use(cookieParser());
 
 app.use('/users', usersRouter);
 app.use('/reclamos', reclamosRouter);
+app.use('/denuncias', denunciasRouter);
 
 module.exports = app;
