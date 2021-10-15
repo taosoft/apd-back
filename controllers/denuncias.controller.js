@@ -1,4 +1,4 @@
-const DenunciService = require("../services/reclamos.service");
+const DenunciaService = require("../services/reclamos.service");
 
 // Saving the context of this module inside the _the variable
 _this = this;
