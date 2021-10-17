@@ -4,7 +4,7 @@ const logger = require('morgan');
 require('dotenv').config();
 
 // Database connection
-const sql_connection = require('./database');
+const mysql_connection = require('./database');
 
 // Endpoints
 // const usersRouter = require('./routes/users');
@@ -26,7 +26,7 @@ app.use(cookieParser());
 // app.use('/servicios', serviciosRouter);
 // app.use('/comercios', comerciosRouter);
 
-sql_connection.authenticate()
+mysql_connection.authenticate()
     .then(console.log('Connected'))
     .catch(console.log);
 
