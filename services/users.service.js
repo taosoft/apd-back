@@ -1,18 +1,24 @@
+const UserModel = require('../models/users.model');
+
 // Saving the context of this module inside the _the variable
 _this = this;
 
-exports.getUser = async (req, res, next) => {
+exports.getUser = async (userId) => {
+    try {
+        return await UserModel.findByPk(userId);
+    } catch (error) {
+        throw Error("Error while searching Reclamo");
+    }
+};
+
+exports.updateUser = async () => {
 
 };
 
-exports.updateUser = async (req, res, next) => {
+exports.createUser = async () => {
 
 };
 
-exports.createUser = async (req, res, next) => {
-
-};
-
-exports.loginUser = async (req, res, next) => {
+exports.loginUser = async () => {
     
 };
