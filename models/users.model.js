@@ -23,6 +23,11 @@ const Users = sequelize.define('users',
         },
         contraseña: {
             type: DataTypes.STRING,
+            allowNull: true,
+        },
+        registrado: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
             allowNull: false,
         },
     }, 
