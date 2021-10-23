@@ -1,11 +1,11 @@
-const ReclamoModel = require('../models/reclamos.model');
+const ReclamosModel = require('../models/reclamos.model');
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 exports.getReclamo = async (reclamoId) => {
     try {
-        return await ReclamoModel.findByPk(reclamoId);
+        return await ReclamosModel.findByPk(reclamoId);
     } catch (error) {
         throw Error("Error while searching Reclamo");
     }
@@ -13,7 +13,7 @@ exports.getReclamo = async (reclamoId) => {
 
 exports.getReclamos = async (quantity) => {
     try {
-        return await ReclamoModel.findAll({ 
+        return await ReclamosModel.findAll({ 
             limit: quantity,
             order: ['idReclamo','documento']
         });
@@ -22,11 +22,11 @@ exports.getReclamos = async (quantity) => {
     }
 };
 
-exports.createReclamo = async () => {
+exports.createReclamo = async (newReclamo) => {
     try {
-        
-    } catch (e) {
-
+        return await ReclamosModel.create(newReclamo);
+    } catch (error) {
+        throw Error("Error while Creating a Reclamo");
     }
 };
 
