@@ -1,9 +1,18 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
 const Rubros = sequelize.define('rubros',
     {
-
+        idRubro: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            unique: true,
+        },
+        descripcion: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
