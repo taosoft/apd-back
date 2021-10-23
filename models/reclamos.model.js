@@ -23,7 +23,7 @@ const Reclamos = sequelize.define('reclamos',
         },
         idDesperfecto: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             unique: true,
         },
         descripcion: {
@@ -41,7 +41,7 @@ const Reclamos = sequelize.define('reclamos',
         },
         archivosURL: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
         IdReclamoUnificado: {
             type: DataTypes.INTEGER,

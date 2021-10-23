@@ -23,7 +23,11 @@ exports.getReclamos = async (quantity) => {
 };
 
 exports.createReclamo = async () => {
+    try {
+        
+    } catch (e) {
 
+    }
 };
 
 exports.unificarReclamo = async () => {

@@ -32,7 +32,27 @@ exports.getReclamos = async (req, res, next) => {
 };
 
 exports.createReclamo = async (req, res, next) => {
+    try {
+        const datosReclamo = {
+            documento: req.body.documento,
+            idSitio: req.body.idSitio,
+            idDesperfecto: req.body.idDesperfecto,
+            descripcion: req.body.descripcion ? req.body.descripcion : '',
+            estado: req.body.estado,
+            archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
+            IdReclamoUnificado: req.body.IdReclamoUnificado ? req.body.IdReclamoUnificado : 0,
+        }
 
+        const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
+
+        return res.status(200).json({
+            status: 200,
+            data: reclamosCreated,
+            message: "Successfully Reclamos Created",
+        });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
 };
 
 exports.unificarReclamo = async (req, res, next) => {
