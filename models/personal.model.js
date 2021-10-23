@@ -3,7 +3,36 @@ const sequelize = require('../database');
 
 const Personal = sequelize.define('personal',
     {
-
+        legajo: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            unique: true,
+        },
+        nombre: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        apellido: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        password: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        sector: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        cartegoria: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        fechaIngreso: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.NOW,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );

@@ -1,9 +1,54 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
 const Sitios = sequelize.define('sitios',
     {
-
+        idSitio: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            unique: true,
+        },
+        latitud: {
+            type: DataTypes.DECIMAL,
+            allowNull: false,
+        },
+        calle: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        numero: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+        },
+        entreCalleA: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        entreCalleB: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        descripcion: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        aCargoDe: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        apertura: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        cierre: {
+            type: DataTypes.DATE,
+            allowNull: false,
+        },
+        comentarios: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
