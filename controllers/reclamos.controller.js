@@ -41,6 +41,7 @@ exports.createReclamo = async (req, res, next) => {
             estado: req.body.estado,
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
             IdReclamoUnificado: req.body.IdReclamoUnificado ? req.body.IdReclamoUnificado : 0,
+            bitcora: req.body.bitacora ? req.body.bitacora : '',
         }
 
         const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
@@ -55,9 +56,10 @@ exports.createReclamo = async (req, res, next) => {
     }
 };
 
-exports.unificarReclamo = async (req, res, next) => {
+// Lo hace el municipio, ahora lo hacemos desde la base.
+// exports.unificarReclamo = async (req, res, next) => {
     
-};
+// };
 
 exports.updateReclamo = async (req, res, next) => {
 
