@@ -31,7 +31,7 @@ exports.updateUser = async (user) => {
             where: { documento: user.documento }
         });
 
-        return { updatedUser: updatedUser };
+        return updatedUser;
 
     } catch (error) {
         throw Error("Error while updating User");
