@@ -47,6 +47,10 @@ const Reclamos = sequelize.define('reclamos',
             type: DataTypes.INTEGER,
             allowNull: true,
         },
+        bitacora: {
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
