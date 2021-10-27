@@ -13,9 +13,9 @@ exports.getReclamo = async (reclamoId) => {
 
 exports.getReclamos = async (quantity) => {
     try {
-        return await ReclamosModel.findAll({ 
+        return await ReclamosModel.findAll({
             limit: quantity,
-            order: ['idReclamo','documento']
+            order: ['idReclamo', 'documento']
         });
     } catch (error) {
         throw Error("Error while searching Reclamos");
@@ -31,9 +31,28 @@ exports.createReclamo = async (newReclamo) => {
 };
 
 exports.unificarReclamo = async () => {
-    
+
 };
 
-exports.updateReclamo = async () => {
+exports.updateReclamo = async (reclamoId, datosReclamo) => {
+    try {
 
+        let bitacoraUpdate;
+        bitacoraNow = await ReclamosModel.findAll({
+            attributes: ['bitacora'],
+            where: {
+                idReclamo: reclamoId,
+            }
+        }).then(bitacoraNow => {
+            bitacoraUpdate = bitacoraNow[0].dataValues.bitacora + ";" + datosReclamo.bitacora;
+            return bitacoraUpdate;
+        }).then( async bitacoraUpdate => {
+            return await ReclamosModel.update(
+                { bitacora: bitacoraUpdate },
+                { where: { idReclamo: reclamoId } }
+            )
+        })
+    } catch (error) {
+        throw Error("Error while updating Reclamo");
+    }
 };

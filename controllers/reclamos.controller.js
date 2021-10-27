@@ -41,7 +41,7 @@ exports.createReclamo = async (req, res, next) => {
             estado: req.body.estado,
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
             IdReclamoUnificado: req.body.IdReclamoUnificado ? req.body.IdReclamoUnificado : 0,
-            bitcora: req.body.bitacora ? req.body.bitacora : '',
+            bitacora: req.body.bitacora ? req.body.bitacora : '',
         }
 
         const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
@@ -62,5 +62,19 @@ exports.createReclamo = async (req, res, next) => {
 // };
 
 exports.updateReclamo = async (req, res, next) => {
+    try {
+        const datosReclamo = {
+            bitacora: req.body.bitacora
+        }
 
+        const reclamoUpdated = await ReclamoService.updateReclamo(parseInt(req.params.id), datosReclamo);
+
+        return res.status(200).json({
+            status: 200,
+            data: reclamoUpdated,
+            message: "Successfully Reclamo Updated",
+        });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
 };
