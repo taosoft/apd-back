@@ -63,6 +63,9 @@ exports.createReclamo = async (req, res, next) => {
 
 exports.updateReclamo = async (req, res, next) => {
     try {
+        if (req.body.bitacora.indexOf(";") > -1) {
+            throw new SyntaxError("No puede incluir el caracter ; en bitacora");
+        }
         const datosReclamo = {
             bitacora: req.body.bitacora
         }
