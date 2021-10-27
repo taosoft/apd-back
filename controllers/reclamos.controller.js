@@ -18,7 +18,7 @@ exports.getReclamo = async (req, res, next) => {
 
 exports.getReclamos = async (req, res, next) => {
     try {
-        const pagination = req.query.quantity ? req.query.quantity : 0;
+        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 1000;
         const reclamos = await ReclamoService.getReclamos(pagination);
 
         return res.status(200).json({
