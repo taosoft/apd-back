@@ -10,13 +10,10 @@ const Reclamos = sequelize.define('reclamos',
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrementIdentity: true,
-            allowNull: false,
-            unique: true,
         },
         documento: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         idSitio: {
             type: DataTypes.INTEGER,
@@ -58,8 +55,9 @@ const Reclamos = sequelize.define('reclamos',
     { freezeTableName: true, timestamps: false }
 );
 
-Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
-Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
+// TODO: RESOLVER foreign keys
+// Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
+// Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
 
 Reclamos.belongsTo(Sitios, { foreignKey: 'idSitio', targetKey: 'idSitio' });
 

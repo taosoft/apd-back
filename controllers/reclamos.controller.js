@@ -1,4 +1,5 @@
 const ReclamoService = require("../services/reclamos.service");
+const moment = require("moment");
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -40,6 +41,7 @@ exports.createReclamo = async (req, res, next) => {
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: req.body.estado,
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
+            // TODO: Locale español
             bitacora: `Reclamo creado - ${moment().format('MMMM Do YYYY, h:mm:ss a')};`,
         }
 
@@ -51,6 +53,7 @@ exports.createReclamo = async (req, res, next) => {
             message: "Successfully Reclamos Created",
         });
     } catch (e) {
+        console.log(e)
         return res.status(400).json({ status: 400, message: e.message });
     }
 };
