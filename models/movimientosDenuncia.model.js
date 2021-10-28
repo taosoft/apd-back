@@ -3,7 +3,29 @@ const sequelize = require('../database');
 
 const MovimientoDenuncia = sequelize.define('movimientoDenuncia',
     {
-
+        idMovimiento: {
+            type: DataTypes.INTEGER,
+            primaryKey: true,
+            allowNull: false,
+            unique: true,
+        },
+        idDenuncia: {
+            type: DataTypes.INTEGER,
+            allowNull: false,
+            unique: true,
+        },
+        responsable: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        causa: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        fecha: {
+            type: DataTypes.DATE,
+            defaultValue: Sequelize.NOW,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
