@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const Sitios = require('./sitios.model');
 const Vecinos = require('./vecinos.model');
+const Desperfectos = require('./desperfectos.model');
 
 const Reclamos = sequelize.define('reclamos',
     {
@@ -8,13 +10,10 @@ const Reclamos = sequelize.define('reclamos',
             type: DataTypes.INTEGER,
             primaryKey: true,
             autoIncrementIdentity: true,
-            allowNull: false,
-            unique: true,
         },
         documento: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         idSitio: {
             type: DataTypes.INTEGER,
@@ -23,7 +22,7 @@ const Reclamos = sequelize.define('reclamos',
         },
         idDesperfecto: {
             type: DataTypes.INTEGER,
-            allowNull: true,
+            allowNull: false,
             unique: true,
         },
         descripcion: {
@@ -41,18 +40,29 @@ const Reclamos = sequelize.define('reclamos',
         },
         archivosURL: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
         IdReclamoUnificado: {
             type: DataTypes.INTEGER,
+            defaultValue: null,
+            allowNull: true,
+        },
+        bitacora: {
+            type: DataTypes.STRING,
             allowNull: true,
         },
     }, 
     { freezeTableName: true, timestamps: false }
 );
 
-Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
-Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
+// TODO: RESOLVER foreign keys
+// Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
+// Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
+
+Reclamos.belongsTo(Sitios, { foreignKey: 'idSitio', targetKey: 'idSitio' });
+
+Desperfectos.hasMany(Reclamos, { foreignKey: 'idDesperfecto', targetKey: 'idDesperfecto' });
+Reclamos.belongsTo(Desperfectos, { foreignKey: 'idDesperfecto', targetKey: 'idDesperfecto' });
 
 module.exports = Reclamos;
 
