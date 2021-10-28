@@ -3,7 +3,7 @@ const sequelize = require('../database');
 
 const Sitios = sequelize.define('sitios',
     {
-
+        
     }, 
     { freezeTableName: true, timestamps: false }
 );

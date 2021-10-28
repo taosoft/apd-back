@@ -40,8 +40,7 @@ exports.createReclamo = async (req, res, next) => {
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: req.body.estado,
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
-            IdReclamoUnificado: req.body.IdReclamoUnificado ? req.body.IdReclamoUnificado : 0,
-            bitacora: req.body.bitacora ? req.body.bitacora : '',
+            bitacora: `Reclamo creado - ${moment().format('MMMM Do YYYY, h:mm:ss a')};`,
         }
 
         const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
@@ -61,23 +60,23 @@ exports.createReclamo = async (req, res, next) => {
     
 // };
 
-exports.updateReclamo = async (req, res, next) => {
-    try {
-        if (req.body.bitacora.indexOf(";") > -1) {
-            throw new SyntaxError("No puede incluir el caracter ; en bitacora");
-        }
-        const datosReclamo = {
-            bitacora: req.body.bitacora
-        }
+// exports.updateReclamo = async (req, res, next) => {
+//     try {
+//         if (req.body.bitacora.indexOf(";") > -1) {
+//             throw new SyntaxError("No puede incluir el caracter ; en bitacora");
+//         }
+//         const datosReclamo = {
+//             bitacora: req.body.bitacora
+//         }
 
-        const reclamoUpdated = await ReclamoService.updateReclamo(parseInt(req.params.id), datosReclamo);
+//         const reclamoUpdated = await ReclamoService.updateReclamo(parseInt(req.params.id), datosReclamo);
 
-        return res.status(200).json({
-            status: 200,
-            data: reclamoUpdated,
-            message: "Successfully Reclamo Updated",
-        });
-    } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
-    }
-};
+//         return res.status(200).json({
+//             status: 200,
+//             data: reclamoUpdated,
+//             message: "Successfully Reclamo Updated",
+//         });
+//     } catch (e) {
+//         return res.status(400).json({ status: 400, message: e.message });
+//     }
+// };

@@ -1,6 +1,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const Sitios = require('./sitios.model');
 const Vecinos = require('./vecinos.model');
+const Desperfectos = require('./desperfectos.model');
 
 const Reclamos = sequelize.define('reclamos',
     {
@@ -45,6 +47,7 @@ const Reclamos = sequelize.define('reclamos',
         },
         IdReclamoUnificado: {
             type: DataTypes.INTEGER,
+            defaultValue: null,
             allowNull: true,
         },
         bitacora: {
@@ -57,6 +60,11 @@ const Reclamos = sequelize.define('reclamos',
 
 Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
 Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
+
+Reclamos.belongsTo(Sitios, { foreignKey: 'idSitio', targetKey: 'idSitio' });
+
+Desperfectos.hasMany(Reclamos, { foreignKey: 'idDesperfecto', targetKey: 'idDesperfecto' });
+Reclamos.belongsTo(Desperfectos, { foreignKey: 'idDesperfecto', targetKey: 'idDesperfecto' });
 
 module.exports = Reclamos;
 
