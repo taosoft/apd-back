@@ -1,9 +1,18 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 
 const Barrios = sequelize.define('barrios',
     {
-
+        idBarrio: {
+            type: DataTypes.STRING,
+            primaryKey: true,
+            allowNull: false,
+            unique: true,
+        },
+        nombre: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
