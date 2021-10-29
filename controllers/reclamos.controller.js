@@ -1,5 +1,6 @@
 const ReclamoService = require("../services/reclamos.service");
 const moment = require("moment");
+const { acceptsLanguages } = require("express/lib/request");
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -46,7 +47,7 @@ exports.createReclamo = async (req, res, next) => {
             estado: req.body.estado,
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
             // TODO: Locale español
-            bitacora: `Reclamo creado - ${moment().format('MMMM Do YYYY, h:mm:ss a')};`,
+            bitacora: `Reclamo creado el ${moment().locale('es').format('LLL')} hs;`,
         }
 
         const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
