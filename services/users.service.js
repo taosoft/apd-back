@@ -61,18 +61,18 @@ exports.createUser = async (user) => {
 
 exports.loginUser = async (user) => {
     try {
-        const _details = await UserModel.findOne({ email: user.email });
+        const _details = await UserModel.findOne({ where: { email: user.email }});
         
-        const passwordIsValid = bcrypt.compareSync(user.contraseña,_details.contraseña);
+        const passwordIsValid = bcrypt.compareSync(user.contraseña, _details.contraseña);
         
         if (!passwordIsValid) throw Error("Invalid username/password");
-        if (!_details.verificado) throw Error("La cuenta no ha sido validada");
 
         const token = jwt.sign(
             { documento: _details.documento, },
             process.env.SECRET,
             { expiresIn: "7d", }
         );
+
         return { token: token, user: _details };
     } catch (e) {
         // return a Error message describing the reason
