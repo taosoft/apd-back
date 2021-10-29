@@ -45,7 +45,7 @@ exports.createUser = async (user) => {
         const newUser = {
             documento: user.documento,
             email: user.email,
-            nombre: user.name,
+            nombre: user.nombre,
             apellido: user.apellido,
             contraseña: hashedPassword
         };
@@ -54,6 +54,7 @@ exports.createUser = async (user) => {
         return { createdUser: savedUser };
         
     } catch (error) {
+        console.log(error);
         throw Error("Error while Creating User");
     }
 };

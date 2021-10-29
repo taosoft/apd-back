@@ -1,4 +1,4 @@
-const UserService = require("../services/user.service")
+const UserService = require("../services/users.service")
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -31,7 +31,8 @@ exports.updateUser = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
     try {
-        const createdUser = await UserService.createUser(req.user);
+        const createdUser = await UserService.createUser(req.body);
+        
         return res.status(200).json({
             status: 200,
             data: createdUser,
@@ -41,6 +42,7 @@ exports.createUser = async (req, res, next) => {
         return res.status(400).json({ 
             status: 400,
             message: "User Creation was Unsuccesfull",
+            error: e.message,
         });
     }
 };

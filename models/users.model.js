@@ -25,11 +25,6 @@ const Users = sequelize.define('users',
             type: DataTypes.STRING,
             allowNull: true,
         },
-        registrado: {
-            type: DataTypes.INTEGER,
-            defaultValue: 0,
-            allowNull: false,
-        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
