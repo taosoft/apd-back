@@ -1,6 +1,5 @@
 const ReclamoService = require("../services/reclamos.service");
 const moment = require("moment");
-const { acceptsLanguages } = require("express/lib/request");
 
 // Saving the context of this module inside the _the variable
 _this = this;
