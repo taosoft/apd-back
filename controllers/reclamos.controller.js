@@ -19,7 +19,7 @@ exports.getReclamo = async (req, res, next) => {
 
 exports.getReclamos = async (req, res, next) => {
     try {
-        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 1000;
+        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 10;
         const reclamos = await ReclamoService.getReclamos(pagination);
 
         return res.status(200).json({
@@ -34,6 +34,10 @@ exports.getReclamos = async (req, res, next) => {
 
 exports.createReclamo = async (req, res, next) => {
     try {
+        if(!await ReclamoService.existeVecino(req.body.documento)) {
+            throw new Error(`El vecino con documento ${req.body.documento} no existe`);
+        }
+
         const datosReclamo = {
             documento: req.body.documento,
             idSitio: req.body.idSitio,

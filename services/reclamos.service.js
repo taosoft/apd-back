@@ -1,4 +1,5 @@
 const ReclamosModel = require('../models/reclamos.model');
+const VecinosModel = require("../models/vecinos.model");
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -26,8 +27,18 @@ exports.createReclamo = async (newReclamo) => {
     try {
         return await ReclamosModel.create(newReclamo);
     } catch (error) {
-        console.log(error)
         throw Error("Error while Creating a Reclamo | ", error);
+    }
+};
+
+exports.existeVecino = async (documento) =>{
+    try {
+        const existeVecino = await VecinosModel.findOne({ where: { documento }});
+        
+        if(existeVecino === null) return false;
+        else return true;
+    } catch (error) {
+        throw Error("Error while searching vecino | ", error)
     }
 };
 

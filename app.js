@@ -5,7 +5,7 @@ const cors = require('cors');
 require('dotenv').config();
 
 // Database connection
-require('./database');
+const mysql_connection = require('./database');
 
 // Endpoints
 // const usersRouter = require('./routes/users');
@@ -33,8 +33,8 @@ app.use('/reclamos', reclamosRouter);
 // app.use('/comercios', comerciosRouter);
 
 // Test connection
-// mysql_connection.authenticate()
-//     .then(console.log('Connected'))
-//     .catch(console.log);
+mysql_connection.authenticate()
+    .then(console.log('Connected'))
+    .catch(console.log);
 
 module.exports = app;
