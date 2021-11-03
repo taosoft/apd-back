@@ -50,7 +50,7 @@ exports.createUser = async (req, res, next) => {
 exports.loginUser = async (req, res, next) => {
     try {
         const User = {
-            email: req.body.email,
+            documento: req.body.documento,
             contraseña: req.body.contraseña,
         };
         

@@ -61,7 +61,7 @@ exports.createUser = async (user) => {
 
 exports.loginUser = async (user) => {
     try {
-        const _details = await UserModel.findOne({ where: { email: user.email }});
+        const _details = await UserModel.findOne({ where: { documento: user.documento }});
         
         const passwordIsValid = bcrypt.compareSync(user.contraseña, _details.contraseña);
         
@@ -70,7 +70,7 @@ exports.loginUser = async (user) => {
         const token = jwt.sign(
             { documento: _details.documento, },
             process.env.SECRET,
-            { expiresIn: "7d", }
+            { expiresIn: "1d", }
         );
 
         return { token: token, user: _details };
