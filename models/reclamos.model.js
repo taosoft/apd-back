@@ -9,7 +9,7 @@ const Reclamos = sequelize.define('reclamos',
         idReclamo: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrementIdentity: true,
+            autoIncrement: true,
         },
         documento: {
             type: DataTypes.STRING,

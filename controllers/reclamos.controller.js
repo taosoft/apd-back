@@ -43,9 +43,8 @@ exports.createReclamo = async (req, res, next) => {
             idSitio: req.body.idSitio,
             idDesperfecto: req.body.idDesperfecto,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
-            estado: req.body.estado,
+            estado: "Iniciado",
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
-            // TODO: Locale español
             bitacora: `Reclamo creado el ${moment().locale('es').format('LLL')} hs;`,
         }
 
