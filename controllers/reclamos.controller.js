@@ -66,23 +66,23 @@ exports.createReclamo = async (req, res, next) => {
     
 // };
 
-// exports.updateReclamo = async (req, res, next) => {
-//     try {
-//         if (req.body.bitacora.indexOf(";") > -1) {
-//             throw new SyntaxError("No puede incluir el caracter ; en bitacora");
-//         }
-//         const datosReclamo = {
-//             bitacora: req.body.bitacora
-//         }
+exports.updateReclamo = async (req, res, next) => {
+    try {
+        if (req.body.estado.indexOf(";") > -1) {
+            throw new SyntaxError("No puede incluir el caracter ; en estado");
+        }
+        const datosReclamo = {
+            estado: req.body.estado,
+        }
 
-//         const reclamoUpdated = await ReclamoService.updateReclamo(parseInt(req.params.id), datosReclamo);
+        const reclamoUpdated = await ReclamoService.updateReclamo(parseInt(req.params.id), datosReclamo);
 
-//         return res.status(200).json({
-//             status: 200,
-//             data: reclamoUpdated,
-//             message: "Successfully Reclamo Updated",
-//         });
-//     } catch (e) {
-//         return res.status(400).json({ status: 400, message: e.message });
-//     }
-// };
+        return res.status(200).json({
+            status: 200,
+            data: reclamoUpdated,
+            message: "Successfully Reclamo Updated",
+        });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};

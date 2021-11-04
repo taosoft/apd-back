@@ -1,5 +1,6 @@
 const ReclamosModel = require('../models/reclamos.model');
 const VecinosModel = require("../models/vecinos.model");
+const moment = require("moment");
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -31,11 +32,11 @@ exports.createReclamo = async (newReclamo) => {
     }
 };
 
-exports.existeVecino = async (documento) =>{
+exports.existeVecino = async (documento) => {
     try {
-        const existeVecino = await VecinosModel.findOne({ where: { documento }});
-        
-        if(existeVecino === null) return false;
+        const existeVecino = await VecinosModel.findOne({ where: { documento } });
+
+        if (existeVecino === null) return false;
         else return true;
     } catch (error) {
         throw Error("Error while searching vecino | ", error)
@@ -46,25 +47,28 @@ exports.existeVecino = async (documento) =>{
 
 // };
 
-// exports.updateReclamo = async (reclamoId, datosReclamo) => {
-//     try {
+exports.updateReclamo = async (reclamoId, datosReclamo) => {
+    try {
 
-//         let bitacoraUpdate;
-//         bitacoraNow = await ReclamosModel.findAll({
-//             attributes: ['bitacora'],
-//             where: {
-//                 idReclamo: reclamoId,
-//             }
-//         }).then(bitacoraNow => {
-//             bitacoraUpdate = bitacoraNow[0].dataValues.bitacora + ";" + datosReclamo.bitacora;
-//             return bitacoraUpdate;
-//         }).then( async bitacoraUpdate => {
-//             return await ReclamosModel.update(
-//                 { bitacora: bitacoraUpdate },
-//                 { where: { idReclamo: reclamoId } }
-//             )
-//         })
-//     } catch (error) {
-//         throw Error("Error while updating Reclamo | ", error);
-//     }
-// };
+        let bitacoraUpdate;
+        bitacoraNow = await ReclamosModel.findOne({
+            attributes: ['bitacora'],
+            where: {
+                idReclamo: reclamoId,
+            }
+        }).then( bitacoraNow => {
+            bitacoraUpdate = bitacoraNow.dataValues.bitacora + ";" + `El reclamo #${reclamoId} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`;
+            return bitacoraUpdate;
+        }).then(async bitacoraUpdate => {
+            return await ReclamosModel.update(
+                {
+                    bitacora: bitacoraUpdate,
+                    estado: datosReclamo.estado
+                },
+                { where: { idReclamo: reclamoId } }
+            )
+        })
+    } catch (error) {
+        throw Error("Error while updating Reclamo | ", error);
+    }
+};
