@@ -32,5 +32,23 @@ exports.getComercios = async (req, res, next) => {
 };
 
 exports.createComercio = async (req, res, next) => {
+    try {
+        const datosComercio = {
+            nombre: req.body.nombre,
+            horario: req.body.horario,
+            descripcion: req.body.descripcion,
+            archivosURL: req.body.archivosURL ? req.body.archivosURL : ''
+        }
 
+        const comercioCreated = await ComercioService.createComercio(datosComercio);
+
+        return res.status(200).json({
+            status: 200,
+            data: comercioCreated,
+            message: "Successfully Comercio Created",
+        });
+    } catch (e) {
+        console.log(e)
+        return res.status(400).json({ status: 400, message: e.message });
+    }
 };

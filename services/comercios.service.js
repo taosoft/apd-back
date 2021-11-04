@@ -22,6 +22,10 @@ exports.getComercios = async (pagination) => {
     }
 };
 
-exports.createComercio = async () => {
-
+exports.createComercio = async (newComercio) => {
+    try {
+        return await ComercioModel.create(newComercio);
+    } catch (error) {
+        throw Error("Error while Creating a Comercio | ", error);
+    }
 };
