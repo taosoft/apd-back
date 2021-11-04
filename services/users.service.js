@@ -79,3 +79,14 @@ exports.loginUser = async (user) => {
         throw Error("Error while Login User");
     }
 };
+
+exports.existeUser = async (documento) => {
+    try {
+        const existeVecino = await UserModel.findOne({ where: { documento } });
+
+        if (existeVecino === null) return false;
+        else return true;
+    } catch (error) {
+        throw Error("Error while searching vecino | ", error)
+    }
+};
