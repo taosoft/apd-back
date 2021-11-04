@@ -13,6 +13,7 @@ const reclamosRouter = require('./routes/reclamos');
 // const denunciasRouter = require('./routes/denuncias');
 // const serviciosRouter = require('./routes/servicios');
 // const comerciosRouter = require('./routes/comercios');
+const sitiosRouter = require('./routes/sitios');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use('/reclamos', reclamosRouter);
 // app.use('/denuncias', denunciasRouter);
 // app.use('/servicios', serviciosRouter);
 // app.use('/comercios', comerciosRouter);
+app.use('/sitios', sitiosRouter);
 
 // Test connection
 mysql_connection.authenticate()
