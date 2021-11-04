@@ -45,7 +45,7 @@ exports.createReclamo = async (req, res, next) => {
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
-            bitacora: `Reclamo creado el ${moment().locale('es').format('LLL')} hs;`,
+            bitacora: `Reclamo creado el ${moment().locale('es').format('LLL')} hs`,
         }
 
         const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
