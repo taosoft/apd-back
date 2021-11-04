@@ -40,8 +40,8 @@ exports.createReclamo = async (req, res, next) => {
 
         const datosReclamo = {
             documento: req.body.documento,
-            idSitio: req.body.idSitio,
-            idDesperfecto: req.body.idDesperfecto,
+            idSitio: +req.body.idSitio,
+            idDesperfecto: +req.body.idDesperfecto,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
