@@ -50,7 +50,7 @@ exports.createDenuncia = async (req, res, next) => {
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
         }
 
-        const denunciaCreated = await DenunciaService.createDenucnia(datosDenuncia);
+        const denunciaCreated = await DenunciaService.createDenuncia(datosDenuncia);
 
         return res.status(200).json({
             status: 200,
