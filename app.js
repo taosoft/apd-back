@@ -10,7 +10,7 @@ const mysql_connection = require('./database');
 // Endpoints
 const usersRouter = require('./routes/users');
 const reclamosRouter = require('./routes/reclamos');
-// const denunciasRouter = require('./routes/denuncias');
+const denunciasRouter = require('./routes/denuncias');
 // const serviciosRouter = require('./routes/servicios');
 // const comerciosRouter = require('./routes/comercios');
 
@@ -28,7 +28,7 @@ app.use(cookieParser());
 
 app.use('/users', usersRouter);
 app.use('/reclamos', reclamosRouter);
-// app.use('/denuncias', denunciasRouter);
+app.use('/denuncias', denunciasRouter);
 // app.use('/servicios', serviciosRouter);
 // app.use('/comercios', comerciosRouter);
 
