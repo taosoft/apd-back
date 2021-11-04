@@ -42,11 +42,12 @@ exports.createDenuncia = async (req, res, next) => {
         const datosDenuncia = {
             documento: req.body.documento,
             idSitio: +req.body.idSitio,
-            idDesperfecto: +req.body.idDesperfecto,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",
+            aceptaResponsabilidad: req.body.aceptaResponsabilidad,
+            fechaHecho: req.body.fechaHecho,
+            fechaDenuncia: moment().locale('es').format('LLL'),
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
-            bitacora: `Denuncia creada el ${moment().locale('es').format('LLL')} hs`,
         }
 
         const denunciaCreated = await DenunciaService.createDenucnia(datosDenuncia);
