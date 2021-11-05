@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const ServicioController = require("../controllers/servicio.controller");
+const ServicioController = require("../controllers/servicios.controller");
 
 router.get("/", ServicioController.getServicios);
 router.get("/:id", ServicioController.getServicio);
