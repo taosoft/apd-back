@@ -50,6 +50,6 @@ const Servicios = sequelize.define('servicios',
     { freezeTableName: true, timestamps: false }
 );
 
-Servicios.BelongsTo(Rubros, { foreignKey: 'idRubro', targetKey: 'idRubro' });
+Servicios.belongsTo(Rubros, { foreignKey: 'idRubro', targetKey: 'idRubro' });
 
 module.exports = Servicios;

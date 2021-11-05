@@ -32,10 +32,8 @@ exports.createServicio = async (newServicio) => {
 
 exports.existeServicio = async (nombreDelServicio) => {
     try {
-        const existeServicio = await ServicioModel.findOne({ where: { nombreServicio: nombreDelServicio } });
-
-        if (existeServicio === null) return false;
-        else return true;
+        return await ServicioModel.count({ where: { nombreServicio: nombreDelServicio } });
+        
     } catch (error) {
         throw Error(`Error al buscar si el servicio ${nombreDelServicio} ya existe | `, error)
     }

@@ -19,7 +19,7 @@ exports.getServicio = async (req, res, next) => {
 exports.getServicios = async (req, res, next) => {
     try {
         const pagination = req.query.quantity ? parseInt(req.query.quantity) : 10;
-        const sitios = await ServicioModel.getServicios(pagination);
+        const sitios = await ServicioService.getServicios(pagination);
 
         return res.status(200).json({
             status: 200,
@@ -33,12 +33,12 @@ exports.getServicios = async (req, res, next) => {
 
 exports.createServicio = async (req, res, next) => {
     try {
-        if(await ServicioService.existeServicio(req.body.nombreServicio)) {
+        if(await ServicioService.existeServicio(req.body.nombreServicio) > 0) {
             throw new Error(`El servicio ${req.body.nombreServicio} ya existe`);
         }
 
         const datosServicio = {
-            idRubro: +req.body.idSitio,
+            idRubro: +req.body.idRubro,
             nombreServicio: req.body.nombreServicio,
             nombrePersona: req.body.nombrePersona,
             direccion: req.body.direccion,
