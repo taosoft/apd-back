@@ -14,8 +14,8 @@ exports.getComercio = async (comercioId) => {
 exports.getComercios = async (pagination) => {
     try {
         return await ComercioModel.findAll({
-            limit: quantity,
-            order: ['idComercio', 'documento']
+            limit: pagination,
+            order: ['idComercio', 'nombre']
         });
     } catch (error) {
         throw Error("Error while searching Comercios | ", error);
@@ -27,5 +27,14 @@ exports.createComercio = async (newComercio) => {
         return await ComercioModel.create(newComercio);
     } catch (error) {
         throw Error("Error while Creating a Comercio | ", error);
+    }
+};
+
+exports.existeComercio = async (nombreDelComercio) => {
+    try {
+        return await ComercioModel.count({ where: { nombre: nombreDelComercio } });
+        
+    } catch (error) {
+        throw Error(`Error al buscar si el servicio ${nombreDelComercio} ya existe | `, error)
     }
 };
