@@ -7,7 +7,6 @@ const Vecinos = sequelize.define('vecinos',
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
-            unique: true,
         },
         nombre: {
             type: DataTypes.STRING,

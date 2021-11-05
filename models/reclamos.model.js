@@ -18,12 +18,10 @@ const Reclamos = sequelize.define('reclamos',
         idSitio: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         idDesperfecto: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         descripcion: {
             type: DataTypes.STRING,

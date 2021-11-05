@@ -7,18 +7,16 @@ const Denuncias = sequelize.define('denuncias',
         idDenuncias: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         documento: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         idSitio: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         descripcion: {
             type: DataTypes.STRING,

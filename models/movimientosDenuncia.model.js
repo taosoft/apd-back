@@ -5,14 +5,13 @@ const MovimientoDenuncia = sequelize.define('movimientoDenuncia',
     {
         idMovimiento: {
             type: DataTypes.INTEGER,
+            autoIncrement: true,
             primaryKey: true,
             allowNull: false,
-            unique: true,
         },
         idDenuncia: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         responsable: {
             type: DataTypes.STRING,

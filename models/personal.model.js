@@ -7,7 +7,6 @@ const Personal = sequelize.define('personal',
             type: DataTypes.INTEGER,
             primaryKey: true,
             allowNull: false,
-            unique: true,
         },
         nombre: {
             type: DataTypes.STRING,

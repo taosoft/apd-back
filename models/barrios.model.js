@@ -6,8 +6,8 @@ const Barrios = sequelize.define('barrios',
         idBarrio: {
             type: DataTypes.STRING,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         nombre: {
             type: DataTypes.STRING,
