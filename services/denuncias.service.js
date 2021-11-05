@@ -11,11 +11,11 @@ exports.getDenuncia = async (denunciaId) => {
     }
 };
 
-exports.getDenuncias = async (quantity) => {
+exports.getDenuncias = async (quantity, doc) => {
     try {
         return await DenunciaModel.findAll({
+            where: { documento: doc},
             limit: quantity,
-            order: ['idDenuncia', 'documento']
         });
     } catch (error) {
         throw Error("Error while searching Reclamos | ", error);

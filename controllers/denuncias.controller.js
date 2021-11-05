@@ -1,4 +1,4 @@
-const DenunciaService = require("../services/reclamos.service");
+const DenunciaService = require("../services/denuncias.service");
 const UserService = require('../services/users.service');
 const moment = require('moment');
 
@@ -21,7 +21,7 @@ exports.getDenuncia = async (req, res, next) => {
 exports.getDenuncias = async (req, res, next) => {
     try {
         const pagination = req.query.quantity ? parseInt(req.query.quantity) : 10;
-        const denuncias = await DenunciaService.getDenuncias(pagination);
+        const denuncias = await DenunciaService.getDenuncias(pagination, req.params.documento);
 
         return res.status(200).json({
             status: 200,
@@ -44,8 +44,8 @@ exports.createDenuncia = async (req, res, next) => {
             idSitio: +req.body.idSitio,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",
-            aceptaResponsabilidad: req.body.aceptaResponsabilidad,
-            fechaHecho: req.body.fechaHecho,
+            aceptaResponsabilidad: req.body.aceptaResponsabilidad ?? 1,
+            fechaHecho: req.body.fechaHecho ?? null,
             fechaDenuncia: moment().locale('es').format('LLL'),
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
         }
