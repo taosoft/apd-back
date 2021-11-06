@@ -19,7 +19,7 @@ exports.getDenuncias = async (pagination, doc) => {
             order: ['idDenuncias', 'documento']
         });
     } catch (error) {
-        throw Error("Error while searching Reclamos | ", error);
+        throw Error("Error while searching Denuncias | ", error);
     }
 };
 
@@ -27,6 +27,17 @@ exports.createDenuncia = async (newDenuncia) => {
     try {
         return await DenunciaModel.create(newDenuncia);
     } catch (error) {
-        throw Error("Error while Creating a Reclamo | ", error);
+        throw Error("Error while Creating a Denuncia | ", error);
+    }
+};
+
+exports.updateDenuncia = async (denunciaId, estadoDenuncia) => {
+    try {        
+        return await DenunciaModel.update(
+            { estado: estadoDenuncia },
+            { where: { idDenuncia: denunciaId } }
+        )
+    } catch (error) {
+        throw Error("Error while updating Denuncia | ", error);
     }
 };

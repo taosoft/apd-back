@@ -17,9 +17,8 @@ exports.getMovimientosDenuncias = async (denunciaId) => {
 
 exports.createMovimientoDenuncia = async (newMovimientoDenuncia) => {
     try {
-        //console.log(newMovimientoDenuncia)
         return await MovimientosDenunciaModel.create(newMovimientoDenuncia);
     } catch (error) {
-        throw Error(`Error al crear el movimiento de denuncia #${newMovimientoReclamo.idDenuncia} | `, error);
+        throw Error(`Error al crear el movimiento de denuncia #${newMovimientoDenuncia.idDenuncia} | `, error);
     }
 };
