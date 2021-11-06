@@ -8,11 +8,11 @@ _this = this;
 
 exports.getDenuncia = async (req, res, next) => {
     try {
-        const reclamo = await DenunciaService.getDenuncia(req.params.id);
+        const denuncia = await DenunciaService.getDenuncia(parseInt(req.params.id));
         return res.status(200).json({
             status: 200,
-            data: reclamo,
-            message: "Successfully Denuncia Received",
+            data: denuncia,
+            message: "Denuncia recibida exitosamente",
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
@@ -27,7 +27,7 @@ exports.getDenuncias = async (req, res, next) => {
         return res.status(200).json({
             status: 200,
             data: denuncias,
-            message: "Successfully Denuncias Received",
+            message: "Denuncias recibida exitosamente",
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });
@@ -53,7 +53,7 @@ exports.createDenuncia = async (req, res, next) => {
         const denunciaCreated = await DenunciaService.createDenuncia(datosDenuncia);
 
         const datosMovimientoDenuncia = {
-            idDenuncia: denunciaCreated.idDenuncias,
+            idDenuncia: denunciaCreated.idDenuncia,
             responsable: "Municipio",
             causa: denunciaCreated.descripcion,
         }
