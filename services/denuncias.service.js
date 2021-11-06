@@ -13,13 +13,11 @@ exports.getDenuncia = async (denunciaId) => {
 
 exports.getDenuncias = async (pagination, doc) => {
     try {
-        const denuncias = await DenunciaModel.findAll({
+        return await DenunciaModel.findAll({
             where: { documento: doc },
             limit: pagination,
             order: ['idDenuncias', 'documento']
         });
-        console.log(denuncias)
-        return denuncias
     } catch (error) {
         console.log(error)
         throw Error("Error al buscar todas las Denuncias | ", error);
@@ -38,7 +36,7 @@ exports.updateDenuncia = async (denunciaId, estadoDenuncia) => {
     try {        
         return await DenunciaModel.update(
             { estado: estadoDenuncia },
-            { where: { idDenuncia: denunciaId } }
+            { where: { idDenuncias: denunciaId } }
         )
     } catch (error) {
         throw Error("Error while updating Denuncia | ", error);
