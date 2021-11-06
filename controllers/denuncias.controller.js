@@ -46,8 +46,7 @@ exports.createDenuncia = async (req, res, next) => {
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",
             aceptaResponsabilidad: req.body.aceptaResponsabilidad ?? 1,
-            fechaDenuncia: moment().locale('es').format('LLL'),
-            fechaHecho: req.body.fechaHecho ?? null,
+            fechaHecho: req.body.fechaHecho ?? moment().locale('es').format(),
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
         }
 
@@ -57,7 +56,6 @@ exports.createDenuncia = async (req, res, next) => {
             idDenuncia: denunciaCreated.idDenuncias,
             responsable: "Municipio",
             causa: denunciaCreated.descripcion,
-            fecha: moment().locale('es').format('LLL')
         }
 
         const movimientoDenunciaCreada = MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
