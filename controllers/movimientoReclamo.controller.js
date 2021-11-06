@@ -20,17 +20,17 @@ exports.getMovimientosReclamos = async (req, res, next) => {
 
 exports.createMovimientoReclamo = async (req, res, next) => {
     try {
-        const datosReclamo = {
+        const datosMovimientoReclamo = {
             idReclamo: req.body.idReclamo,
             responsable: req.body.responsable,
-            causa: req.body,causa,
+            causa: req.body.causa,
         }
 
-        const reclamosCreated = await MovimientoReclamoService.createMovimientoReclamo(datosReclamo);
+        const movimientoReclamosCreated = await MovimientoReclamoService.createMovimientoReclamo(datosMovimientoReclamo);
 
         return res.status(200).json({
             status: 200,
-            data: reclamosCreated,
+            data: movimientoReclamosCreated,
             message: "Successfully Reclamos Created",
         });
     } catch (e) {

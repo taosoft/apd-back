@@ -17,7 +17,7 @@ exports.getMovimientosReclamos = async (reclamoId) => {
 
 exports.createMovimientoReclamo = async (newMovimientoReclamo) => {
     try {
-        return await MovimientoReclamoModel.create(newServicio);
+        return await MovimientoReclamoModel.create(newMovimientoReclamo);
     } catch (error) {
         throw Error(`Error al crear el movimiento de reclamo #${newMovimientoReclamo.idReclamo} | `, error);
     }
