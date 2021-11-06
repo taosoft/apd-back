@@ -13,13 +13,16 @@ exports.getDenuncia = async (denunciaId) => {
 
 exports.getDenuncias = async (pagination, doc) => {
     try {
-        return await DenunciaModel.findAll({
-            where: { documento: doc},
+        const denuncias = await DenunciaModel.findAll({
+            where: { documento: doc },
             limit: pagination,
             order: ['idDenuncias', 'documento']
         });
+        console.log(denuncias)
+        return denuncias
     } catch (error) {
-        throw Error("Error while searching Denuncias | ", error);
+        console.log(error)
+        throw Error("Error al buscar todas las Denuncias | ", error);
     }
 };
 
