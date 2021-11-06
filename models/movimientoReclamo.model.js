@@ -1,5 +1,6 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const ReclamosModel = require('../models/reclamos.model');
 
 const MovimientoReclamo = sequelize.define('movimientosReclamo',
     {
@@ -28,6 +29,8 @@ const MovimientoReclamo = sequelize.define('movimientosReclamo',
     }, 
     { freezeTableName: true, timestamps: false }
 );
+
+MovimientoReclamo.hasMany(ReclamosModel, { foreignKey: 'idReclamo', targetKey: 'idReclamo' });
 
 module.exports = MovimientoReclamo;
 

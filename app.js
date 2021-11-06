@@ -15,6 +15,7 @@ const serviciosRouter = require('./routes/servicios');
 const comerciosRouter = require('./routes/comercios');
 const sitiosRouter = require('./routes/sitios');
 const movimientoReclamoRouter = require('./routes/movimientoReclamo');
+const movimientoDenunciaRouter = require('./routes/movimientoDenuncia');
 
 const app = express();
 
@@ -35,6 +36,7 @@ app.use('/servicios', serviciosRouter);
 app.use('/comercios', comerciosRouter);
 app.use('/sitios', sitiosRouter);
 app.use('/movimientoReclamos', movimientoReclamoRouter);
+app.use('/movimientoDenuncias', movimientoDenunciaRouter);
 
 // Test connection
 mysql_connection.authenticate()

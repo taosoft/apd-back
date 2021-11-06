@@ -21,7 +21,7 @@ exports.getMovimientosReclamos = async (req, res, next) => {
 exports.createMovimientoReclamo = async (req, res, next) => {
     try {
         const datosMovimientoReclamo = {
-            idReclamo: req.body.idReclamo,
+            idReclamo: req.params.id,
             responsable: req.body.responsable,
             causa: req.body.causa,
         }
@@ -39,28 +39,3 @@ exports.createMovimientoReclamo = async (req, res, next) => {
     }
 };
 
-// Lo hace el municipio, ahora lo hacemos desde la base.
-// exports.unificarReclamo = async (req, res, next) => {
-    
-// };
-
-exports.updateReclamo = async (req, res, next) => {
-    try {
-        if (req.body.estado.indexOf(";") > -1) {
-            throw new SyntaxError("No puede incluir el caracter ; en estado");
-        }
-        const datosReclamo = {
-            estado: req.body.estado,
-        }
-
-        const reclamoUpdated = await MovimientoReclamoService.updateReclamo(parseInt(req.params.id), datosReclamo);
-
-        return res.status(200).json({
-            status: 200,
-            data: reclamoUpdated,
-            message: "Successfully Reclamo Updated",
-        });
-    } catch (e) {
-        return res.status(400).json({ status: 400, message: e.message });
-    }
-};

@@ -3,7 +3,7 @@ const router = express.Router();
 const MovimientoReclamoController = require("../controllers/movimientoReclamo.controller");
 
 router.get("/:id", MovimientoReclamoController.getMovimientosReclamos);
-router.post("/", MovimientoReclamoController.createMovimientoReclamo);
+router.post("/:id", MovimientoReclamoController.createMovimientoReclamo);
 
 // Export the Router
 module.exports = router;
