@@ -31,7 +31,15 @@ exports.updateUser = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
     try {
-        const createdUser = await UserService.createUser(req.body);
+        const dataUser = {
+            documento: req.body.documento,
+            email: req.body.email,
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            contraseña: req.body.contraseña,
+            inspector: req.body.inspector ?? 0,
+        }
+        const createdUser = await UserService.createUser(dataUser);
         
         return res.status(200).json({
             status: 200,

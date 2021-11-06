@@ -43,15 +43,12 @@ exports.createUser = async (user) => {
         const hashedPassword = bcrypt.hashSync(user.contraseña, 8);
 
         const newUser = {
-            documento: user.documento,
-            email: user.email,
-            nombre: user.nombre,
-            apellido: user.apellido,
+            ...user,
             contraseña: hashedPassword
         };
         
-        const savedUser = await UserModel.create(newUser);
-        return { createdUser: savedUser };
+        const createdUser = await UserModel.create(newUser);
+        return createdUser;
         
     } catch (error) {
         console.log(error);
