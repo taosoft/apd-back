@@ -7,7 +7,8 @@ exports.getDenuncia = async (denunciaId) => {
     try {
         return await DenunciaModel.findByPk(denunciaId);
     } catch (error) {
-        throw Error("Error while searching Denuncia | ", error);
+        console.log(error)
+        throw Error(`Error al buscar la denuncia #${denunciaId} | `, error);
     }
 };
 
@@ -16,11 +17,11 @@ exports.getDenuncias = async (pagination, doc) => {
         return await DenunciaModel.findAll({
             where: { documento: doc },
             limit: pagination,
-            order: ['idDenuncias', 'documento']
+            order: ['idDenuncia', 'documento']
         });
     } catch (error) {
         console.log(error)
-        throw Error("Error al buscar todas las Denuncias | ", error);
+        throw Error(`Error al buscar todas las Denuncias del usuario ${doc} | `, error);
     }
 };
 
@@ -36,7 +37,7 @@ exports.updateDenuncia = async (denunciaId, estadoDenuncia) => {
     try {        
         return await DenunciaModel.update(
             { estado: estadoDenuncia },
-            { where: { idDenuncias: denunciaId } }
+            { where: { idDenuncia: denunciaId } }
         )
     } catch (error) {
         throw Error("Error while updating Denuncia | ", error);
