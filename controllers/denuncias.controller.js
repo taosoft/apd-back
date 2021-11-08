@@ -22,7 +22,7 @@ exports.getDenuncia = async (req, res, next) => {
 exports.getDenuncias = async (req, res, next) => {
     try {
         const pagination = req.query.quantity ? parseInt(req.query.quantity) : 10;
-        const denuncias = await DenunciaService.getDenuncias(pagination, req.params.documento);
+        const denuncias = await DenunciaService.getDenuncias(pagination, req.documento);
 
         return res.status(200).json({
             status: 200,
@@ -36,12 +36,8 @@ exports.getDenuncias = async (req, res, next) => {
 
 exports.createDenuncia = async (req, res, next) => {
     try {
-        if(!await UserService.existeUser(req.body.documento)) {
-            throw new Error(`El usuario con documento ${req.body.documento} no existe`);
-        }
-
         const datosDenuncia = {
-            documento: req.body.documento,
+            documento: req.documento,
             idSitio: +req.body.idSitio,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",

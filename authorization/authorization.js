@@ -10,7 +10,8 @@ const authorization = (req, res, next) => {
 
         jwt.verify(token, process.env.SECRET, (err, decoded) => {
             if (err) res.status(500).send({ auth: false, message: "Failed to authenticate token." });
-            req.userId = decoded.id;
+            req.documento = decoded.documento;
+            req.tipoUsuario = decoded.tipoUsuario;
             next();
         });
     }

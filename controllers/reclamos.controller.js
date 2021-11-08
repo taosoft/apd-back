@@ -35,12 +35,8 @@ exports.getReclamos = async (req, res, next) => {
 
 exports.createReclamo = async (req, res, next) => {
     try {
-        if(!await ReclamoService.existeVecino(req.body.documento)) {
-            throw new Error(`El vecino con documento ${req.body.documento} no existe`);
-        }
-
         const datosReclamo = {
-            documento: req.body.documento,
+            documento: req.documento,
             idSitio: +req.body.idSitio,
             idDesperfecto: +req.body.idDesperfecto,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
