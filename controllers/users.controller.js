@@ -18,10 +18,11 @@ exports.getUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
     try {
-        const userUpdated = await UserService.updateUser(req.body);
+        const userUpdated = await UserService.updateUser(req.params.id, req.body);
+        
         return res.status(200).json({
-            status: userUpdated,
-            data: user,
+            status: 200,
+            data: userUpdated,
             message: "Successfully User Updated",
         });
     } catch (e) {
