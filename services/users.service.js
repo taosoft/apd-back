@@ -20,10 +20,10 @@ exports.updateUser = async (user) => {
 
         if(!userDatabase) throw Error("User doesn't exist");
 
-        const hashedPassword = bcrypt.hashSync(user.contraseña, 8);
+        const hashedPassword = bcrypt.hashSync(user.contraseña ?? userDatabase.contraseña, 8);
 
         const updatedUserData = {
-            email: user.email,
+            email: user.email ?? userDatabase.email,
             contraseña: hashedPassword
         };
 
