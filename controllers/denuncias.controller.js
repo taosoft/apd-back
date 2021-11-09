@@ -22,7 +22,7 @@ exports.getDenuncia = async (req, res, next) => {
 exports.getDenuncias = async (req, res, next) => {
     try {
         const pagination = req.query.quantity ? parseInt(req.query.quantity) : 10;
-        const denuncias = await DenunciaService.getDenuncias(pagination, req.documento);
+        const denuncias = await DenunciaService.getDenuncias(pagination, req.params.id);
 
         return res.status(200).json({
             status: 200,

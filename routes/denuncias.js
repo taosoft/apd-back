@@ -3,7 +3,7 @@ const router = express.Router();
 const DenunciaController = require("../controllers/denuncias.controller");
 const Authorization = require("../authorization/authorization");
 
-router.get("/usuario", Authorization, DenunciaController.getDenuncias);
+router.get("/usuario/:id", Authorization, DenunciaController.getDenuncias);
 router.get("/:id", Authorization, DenunciaController.getDenuncia);
 router.post("/", Authorization, DenunciaController.createDenuncia);
 
