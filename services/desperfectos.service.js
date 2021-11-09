@@ -1,7 +1,15 @@
 const DesperfectoModel = require('../models/desperfectos.model');
 
 // Saving the context of this module inside the _the variable
-_this = this;
+_this = this
+
+exports.getDesperfecto = async (idDesperfecto) => {
+    try {
+        return await DesperfectoModel.findByPk(idDesperfecto);
+    } catch (error) {
+        throw Error(`Error al buscar el desperfecto #${idDesperfecto} | `, error);
+    }
+};
 
 exports.getDesperfectos = async () => {
     try {
