@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Sitios = require('./sitios.model');
-const Vecinos = require('./vecinos.model');
+const Users = require('./users.model');
 const Desperfectos = require('./desperfectos.model');
 
 const Reclamos = sequelize.define('reclamos',
@@ -54,8 +54,8 @@ const Reclamos = sequelize.define('reclamos',
 );
 
 // TODO: RESOLVER foreign keys
-// Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
-// Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
+Reclamos.belongsTo(Users, { foreignKey: 'documento', targetKey: 'documento' });
+Users.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
 
 Reclamos.belongsTo(Sitios, { foreignKey: 'idSitio', targetKey: 'idSitio' });
 

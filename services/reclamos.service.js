@@ -1,5 +1,8 @@
 const ReclamosModel = require('../models/reclamos.model');
 const VecinosModel = require("../models/vecinos.model");
+const UserModel = require('../models/users.model');
+const SitioModel = require('../models/sitios.model');
+const DesperfectoModel = require('../models/desperfectos.model');
 const moment = require("moment");
 
 // Saving the context of this module inside the _the variable
@@ -21,6 +24,21 @@ exports.getReclamos = async (quantity) => {
         });
     } catch (error) {
         throw Error("Error while searching Reclamos | ", error);
+    }
+};
+
+exports.getReclamoDetalle = async (reclamoId) => {
+    try {
+        return await ReclamosModel.findAll({
+            where: { idReclamo: reclamoId },
+            include: [
+                { model: UserModel },
+                { model: SitioModel},
+                { model: DesperfectoModel}
+            ]
+        });
+    } catch (error) {
+        throw Error("Error while searching Reclamos Detalle | ", error);
     }
 };
 
