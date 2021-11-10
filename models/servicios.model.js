@@ -51,5 +51,6 @@ const Servicios = sequelize.define('servicios',
 );
 
 Servicios.belongsTo(Rubros, { foreignKey: 'idRubro', targetKey: 'idRubro' });
+Rubros.hasMany(Servicios, { foreignKey: 'idRubro', targetKey: 'idRubro' });
 
 module.exports = Servicios;

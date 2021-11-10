@@ -1,4 +1,5 @@
 const ServicioModel = require('../models/servicios.model');
+const RubroModel = require('../models/rubros.model');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -6,6 +7,19 @@ _this = this;
 exports.getServicio = async (servicioId) => {
     try {
         return await ServicioModel.findByPk(servicioId);
+    } catch (error) {
+        throw Error(`Error al buscar el Servicio ${servicioId} | `, error);
+    }
+};
+
+exports.getServicioDetalle = async (servicioId) => {
+    try {
+        return await ServicioModel.findOne({
+            where: { idServicio: servicioId },
+            include: [
+                { model: RubroModel }
+            ]
+        })
     } catch (error) {
         throw Error(`Error al buscar el Servicio ${servicioId} | `, error);
     }
