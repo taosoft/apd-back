@@ -2,7 +2,12 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
+const moment = require('moment');
 require('dotenv').config();
+require('moment/locale/es');
+
+// Verificacion
+// console.log(moment.locale());
 
 // Database connection
 const mysql_connection = require('./database');

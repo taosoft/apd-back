@@ -42,7 +42,7 @@ exports.createDenuncia = async (req, res, next) => {
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",
             aceptaResponsabilidad: req.body.aceptaResponsabilidad ?? 1,
-            fechaHecho: req.body.fechaHecho ?? moment().locale('es').format(),
+            fechaHecho: req.body.fechaHecho ?? moment(),
             archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
         }
 
