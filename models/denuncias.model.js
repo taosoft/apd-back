@@ -1,6 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Sitios = require('./sitios.model');
+const Users = require('./users.model');
 
 const Denuncias = sequelize.define('denuncias',
     {
@@ -49,5 +50,7 @@ const Denuncias = sequelize.define('denuncias',
 );
 
 Denuncias.belongsTo(Sitios, { foreignKey: 'idSitio', targetKey: 'idSitio' });
+Denuncias.belongsTo(Users, { foreignKey: 'documento', targetKey: 'documento' });
+Users.hasMany(Denuncias, { foreignKey: 'documento', targetKey: 'documento' });
 
 module.exports = Denuncias;

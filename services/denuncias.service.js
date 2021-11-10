@@ -1,4 +1,6 @@
 const DenunciaModel = require('../models/denuncias.model');
+const UserModel = require('../models/users.model');
+const SitioModel = require('../models/sitios.model');
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -6,6 +8,21 @@ _this = this;
 exports.getDenuncia = async (denunciaId) => {
     try {
         return await DenunciaModel.findByPk(denunciaId);
+    } catch (error) {
+        console.log(error)
+        throw Error(`Error al buscar la denuncia #${denunciaId} | `, error);
+    }
+};
+
+exports.getDenunciaDetalle = async (denunciaId) => {
+    try {
+        return await DenunciaModel.findOne( {
+            where: { idDenuncia: denunciaId },
+            include: [ 
+                {model: UserModel },
+                {model: SitioModel },
+            ]
+        });
     } catch (error) {
         console.log(error)
         throw Error(`Error al buscar la denuncia #${denunciaId} | `, error);
