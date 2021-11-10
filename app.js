@@ -7,7 +7,7 @@ require('dotenv').config();
 require('moment/locale/es');
 
 // Verificacion
-// console.log(moment.locale());
+console.log("Verificación de tiempo, locale: ", moment.locale());
 
 // Database connection
 const mysql_connection = require('./database');
