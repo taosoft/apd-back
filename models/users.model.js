@@ -7,7 +7,6 @@ const Users = sequelize.define('users',
             type: DataTypes.STRING,
             primaryKey: true,
             allowNull: false,
-            unique: true,
         },
         email: {
             type: DataTypes.STRING,
@@ -25,11 +24,11 @@ const Users = sequelize.define('users',
             type: DataTypes.STRING,
             allowNull: true,
         },
-        registrado: {
+        inspector: {
             type: DataTypes.INTEGER,
-            defaultValue: 0,
+            defaultValue: 0, // No inspector
             allowNull: false,
-        },
+        }
     }, 
     { freezeTableName: true, timestamps: false }
 );

@@ -1,4 +1,4 @@
-const UserService = require("../services/user.service")
+const UserService = require("../services/users.service")
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -18,10 +18,11 @@ exports.getUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
     try {
-        const userUpdated = await UserService.updateUser(req.body);
+        const userUpdated = await UserService.updateUser(req.params.id, req.body);
+        
         return res.status(200).json({
-            status: userUpdated,
-            data: user,
+            status: 200,
+            data: userUpdated,
             message: "Successfully User Updated",
         });
     } catch (e) {
@@ -31,7 +32,16 @@ exports.updateUser = async (req, res, next) => {
 
 exports.createUser = async (req, res, next) => {
     try {
-        const createdUser = await UserService.createUser(req.user);
+        const dataUser = {
+            documento: req.body.documento,
+            email: req.body.email,
+            nombre: req.body.nombre,
+            apellido: req.body.apellido,
+            contraseña: req.body.contraseña,
+            inspector: req.body.inspector ?? 0,
+        }
+        const createdUser = await UserService.createUser(dataUser);
+        
         return res.status(200).json({
             status: 200,
             data: createdUser,
@@ -41,6 +51,7 @@ exports.createUser = async (req, res, next) => {
         return res.status(400).json({ 
             status: 400,
             message: "User Creation was Unsuccesfull",
+            error: e.message,
         });
     }
 };
@@ -48,7 +59,7 @@ exports.createUser = async (req, res, next) => {
 exports.loginUser = async (req, res, next) => {
     try {
         const User = {
-            email: req.body.email,
+            documento: req.body.documento,
             contraseña: req.body.contraseña,
         };
         

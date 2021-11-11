@@ -6,8 +6,8 @@ const Sitios = sequelize.define('sitios',
         idSitio: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         latitud: {
             type: DataTypes.DECIMAL,

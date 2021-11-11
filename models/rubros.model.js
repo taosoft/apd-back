@@ -6,8 +6,8 @@ const Rubros = sequelize.define('rubros',
         idRubro: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         descripcion: {
             type: DataTypes.STRING,

@@ -1,18 +1,18 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
+const ReclamosModel = require('../models/reclamos.model');
 
-const MovimientoReclamo = sequelize.define('movimientoReclamo',
+const MovimientoReclamo = sequelize.define('movimientosReclamo',
     {
         idMovimiento: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         idReclamo: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         responsable: {
             type: DataTypes.STRING,
@@ -29,6 +29,8 @@ const MovimientoReclamo = sequelize.define('movimientoReclamo',
     }, 
     { freezeTableName: true, timestamps: false }
 );
+
+MovimientoReclamo.hasMany(ReclamosModel, { foreignKey: 'idReclamo', targetKey: 'idReclamo' });
 
 module.exports = MovimientoReclamo;
 

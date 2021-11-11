@@ -1,7 +1,7 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Sitios = require('./sitios.model');
-const Vecinos = require('./vecinos.model');
+const Users = require('./users.model');
 const Desperfectos = require('./desperfectos.model');
 
 const Reclamos = sequelize.define('reclamos',
@@ -9,7 +9,7 @@ const Reclamos = sequelize.define('reclamos',
         idReclamo: {
             type: DataTypes.INTEGER,
             primaryKey: true,
-            autoIncrementIdentity: true,
+            autoIncrement: true,
         },
         documento: {
             type: DataTypes.STRING,
@@ -18,12 +18,10 @@ const Reclamos = sequelize.define('reclamos',
         idSitio: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         idDesperfecto: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         descripcion: {
             type: DataTypes.STRING,
@@ -56,8 +54,8 @@ const Reclamos = sequelize.define('reclamos',
 );
 
 // TODO: RESOLVER foreign keys
-// Vecinos.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
-// Reclamos.belongsTo(Vecinos, { foreignKey: 'documento', targetKey: 'documento' });
+Reclamos.belongsTo(Users, { foreignKey: 'documento', targetKey: 'documento' });
+Users.hasMany(Reclamos, { foreignKey: 'documento', targetKey: 'documento' });
 
 Reclamos.belongsTo(Sitios, { foreignKey: 'idSitio', targetKey: 'idSitio' });
 

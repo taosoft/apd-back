@@ -7,13 +7,12 @@ const Servicios = sequelize.define('servicios',
         idServicio: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         idRubro: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         nombreServicio: {
             type: DataTypes.STRING,
@@ -45,12 +44,13 @@ const Servicios = sequelize.define('servicios',
         },
         archivosURL: {
             type: DataTypes.STRING,
-            allowNull: true,
+            allowNull: false,
         },
     }, 
     { freezeTableName: true, timestamps: false }
 );
 
-Servicios.BelongsTo(Rubros, { foreignKey: 'idRubro', targetKey: 'idRubro' });
+Servicios.belongsTo(Rubros, { foreignKey: 'idRubro', targetKey: 'idRubro' });
+Rubros.hasMany(Servicios, { foreignKey: 'idRubro', targetKey: 'idRubro' });
 
 module.exports = Servicios;

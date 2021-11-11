@@ -6,13 +6,12 @@ const Desperfectos = sequelize.define('desperfectos',
         idDesperfecto: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         idRubro: {
             type: DataTypes.INTEGER,
             allowNull: false,
-            unique: true,
         },
         descripcion: {
             type: DataTypes.STRING,

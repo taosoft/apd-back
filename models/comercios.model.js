@@ -6,8 +6,8 @@ const Comercios = sequelize.define('comercios',
         idComercio: {
             type: DataTypes.INTEGER,
             primaryKey: true,
+            autoIncrement: true,
             allowNull: false,
-            unique: true,
         },
         nombre: {
             type: DataTypes.STRING,

@@ -13,22 +13,24 @@ exports.getUser = async (documento) => {
     }
 };
 
-exports.updateUser = async (user) => {
+exports.updateUser = async (doc, user) => {
     try {
-
-        const userDatabase = this.getUser(user.documento);
+        const userDatabase = await this.getUser(doc);
 
         if(!userDatabase) throw Error("User doesn't exist");
+        let hashedPassword;
 
-        const hashedPassword = bcrypt.hashSync(user.contraseña, 8);
+        if(user.updateData.contraseña) {
+            hashedPassword = bcrypt.hashSync(user.updateData.contraseña, 8);
+        }
 
         const updatedUserData = {
-            email: user.email,
-            contraseña: hashedPassword
+            email: user.updateData.email ?? userDatabase.email,
+            contraseña: hashedPassword ?? userDatabase.contraseña,
         };
 
         const updatedUser = await UserModel.update(updatedUserData, {
-            where: { documento: user.documento }
+            where: { documento: doc }
         });
 
         return updatedUser;
@@ -43,38 +45,47 @@ exports.createUser = async (user) => {
         const hashedPassword = bcrypt.hashSync(user.contraseña, 8);
 
         const newUser = {
-            documento: user.documento,
-            email: user.email,
-            nombre: user.name,
-            apellido: user.apellido,
+            ...user,
             contraseña: hashedPassword
         };
         
-        const savedUser = await UserModel.create(newUser);
-        return { createdUser: savedUser };
+        const createdUser = await UserModel.create(newUser);
+        return createdUser;
         
     } catch (error) {
+        console.log(error);
         throw Error("Error while Creating User");
     }
 };
 
 exports.loginUser = async (user) => {
     try {
-        const _details = await UserModel.findOne({ email: user.email });
+        const _details = await UserModel.findOne({ where: { documento: user.documento }});
         
-        const passwordIsValid = bcrypt.compareSync(user.contraseña,_details.contraseña);
+        const passwordIsValid = bcrypt.compareSync(user.contraseña, _details.contraseña);
         
         if (!passwordIsValid) throw Error("Invalid username/password");
-        if (!_details.verificado) throw Error("La cuenta no ha sido validada");
 
         const token = jwt.sign(
             { documento: _details.documento, },
             process.env.SECRET,
-            { expiresIn: "7d", }
+            { expiresIn: "1d", }
         );
+
         return { token: token, user: _details };
     } catch (e) {
         // return a Error message describing the reason
         throw Error("Error while Login User");
+    }
+};
+
+exports.existeUser = async (documento) => {
+    try {
+        const existeVecino = await UserModel.findOne({ where: { documento } });
+
+        if (existeVecino === null) return false;
+        else return true;
+    } catch (error) {
+        throw Error("Error while searching vecino | ", error)
     }
 };
