@@ -99,10 +99,10 @@ exports.updateReclamo = async (req, res, next) => {
         const datosMovimientoReclamo = {
             idReclamo: parseInt(req.params.id),
             responsable: "Municipio",
-            causa: `El reclamo #${reclamoId} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`,
+            causa: `El reclamo #${req.params.id} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`,
         }
 
-        const movimientoReclamo = await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
+        await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
 
         return res.status(200).json({
             status: 200,
