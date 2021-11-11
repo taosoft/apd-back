@@ -5,6 +5,7 @@ const Authorization = require("../authorization/authorization");
 
 router.get("/", ServicioController.getServicios);
 router.get("/:id", ServicioController.getServicio);
+router.get("/detalle/:id", ServicioController.getServicioDetalle);
 router.post("/", Authorization, ServicioController.createServicio);
 
 // Export the Router
