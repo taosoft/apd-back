@@ -20,7 +20,10 @@ exports.getReclamos = async (quantity) => {
     try {
         return await ReclamosModel.findAll({
             limit: quantity,
-            order: ['idReclamo', 'documento']
+            order: ['idReclamo', 'documento'],
+            include: [
+                { model: SitioModel},
+            ]
         });
     } catch (error) {
         throw Error("Error while searching Reclamos | ", error);
