@@ -7,7 +7,7 @@ require('dotenv').config();
 require('moment/locale/es');
 
 // Verificacion
-console.log("Verificación de tiempo, locale:", moment.locale());
+//console.log("Verificación de tiempo, locale:", moment.locale());
 
 // Database connection
 const mysql_connection = require('./database');
@@ -26,10 +26,12 @@ const desperfectosDenunciaRouter = require('./routes/desperfectos');
 
 const app = express();
 
-const corsOptions = {
-    origin: `http://localhost:${process.env.PORT}`,
-};
-app.use(cors(corsOptions));
+if (process.env.ENV_NODE == "development") {
+    let corsOptions = {
+        origin: `http://localhost:${process.env.PORT}`,
+    };
+    app.use(cors(corsOptions));
+}
 
 app.use(logger('dev'));
 app.use(express.json());
