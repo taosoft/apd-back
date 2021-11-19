@@ -1,6 +1,6 @@
 const DenunciaService = require("../services/denuncias.service");
-const UserService = require('../services/users.service');
 const MovimientoDenunciasService = require('../services/movimientoDenuncia.service');
+const NotificacionService = require('../services/notificaciones.service');
 const moment = require('moment');
 
 // Saving the context of this module inside the _the variable
@@ -67,7 +67,14 @@ exports.createDenuncia = async (req, res, next) => {
             causa: denunciaCreated.descripcion,
         }
 
-        const movimientoDenunciaCreada = MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
+        const datosNotificacion = {
+            documento: datosReclamo.documento,
+            idGestion: reclamosCreated.idReclamo,
+            descripcion: 'R',
+        }
+
+        await MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
+        await NotificacionService.createNotificacion(datosNotificacion);
 
         return res.status(200).json({
             status: 200,
@@ -94,7 +101,7 @@ exports.updateDenuncia = async (req, res, next) => {
             causa: `La denuncia #${idDenuncia} cambió su estado a: ${denunciaUpdated.estado} a las ${moment().locale('es').format('LLL')} hs`,
         }
 
-        const movimientoDenuncia = await MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
+        await MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
 
         return res.status(200).json({
             status: 200,
