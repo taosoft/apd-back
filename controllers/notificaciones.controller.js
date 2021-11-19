@@ -18,27 +18,6 @@ exports.getNotificaciones = async (req, res, next) => {
     }
 };
 
-exports.createNotificacion = async (req, res, next) => {
-    try {
-        const datosNotificacion = {
-            documento: req.params.id,
-            idGestion: req.body.idGestion,
-            descripcion: req.body.descripcion,
-        }
-        
-        const notificacionCreated = await NotificacionService.createNotificacion(datosNotificacion);
-
-        return res.status(200).json({
-            status: 200,
-            data: notificacionCreated,
-            message: "Notificacion creada exitosamente",
-        });
-    } catch (e) {
-        console.log(e)
-        return res.status(400).json({ status: 400, message: e.message });
-    }
-};
-
 exports.updateNotification = async (req, res, next) => {
     try {
         // req.params.id -> id de la notificacion
