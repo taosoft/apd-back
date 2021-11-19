@@ -1,5 +1,6 @@
 const ReclamoService = require("../services/reclamos.service");
 const MovimientoReclamosService = require("../services/movimientoReclamo.service");
+const NotificacionService = require("../services/notificaciones.service");
 const moment = require("moment");
 
 // Saving the context of this module inside the _the variable
@@ -67,7 +68,14 @@ exports.createReclamo = async (req, res, next) => {
             causa: `Reclamo creado el ${moment().locale('es').format('LLL')} hs`,
         }
 
-        const movimientoReclamo = await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
+        const datosNotificacion = {
+            documento: datosReclamo.documento,
+            idGestion: reclamosCreated.idReclamo,
+            descripcion: 'R',
+        }
+
+        await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
+        await NotificacionService.createNotificacion(datosNotificacion);
 
         return res.status(200).json({
             status: 200,
