@@ -23,6 +23,7 @@ const movimientoReclamoRouter = require('./routes/movimientoReclamo');
 const movimientoDenunciaRouter = require('./routes/movimientoDenuncia');
 const rubrosDenunciaRouter = require('./routes/rubros');
 const desperfectosDenunciaRouter = require('./routes/desperfectos');
+const notificacionesRouter = require('./routes/notificaciones');
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use('/movimientoReclamos', movimientoReclamoRouter);
 app.use('/movimientoDenuncias', movimientoDenunciaRouter);
 app.use('/rubros', rubrosDenunciaRouter);
 app.use('/desperfectos', desperfectosDenunciaRouter);
+app.use('/notificaciones', notificacionesRouter);
 
 // Test connection
 mysql_connection.authenticate()
