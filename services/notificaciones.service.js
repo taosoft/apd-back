@@ -10,10 +10,11 @@ exports.getNotificaciones = async (doc) => {
                 documento: doc,
                 visto: 0,
             },
+            raw: true,
             order: [
                 ['id', 'DESC'],
             ]
-        });
+        },);
 
     } catch (error) {
         throw Error(`Error al buscar todas las notificaciones | `, error);

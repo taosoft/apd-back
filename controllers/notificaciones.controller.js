@@ -1,16 +1,43 @@
 const NotificacionService = require("../services/notificaciones.service");
+const ReclamoService = require("../services/reclamos.service")
+const DenunciaService = require("../services/denuncias.service")
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 exports.getNotificaciones = async (req, res, next) => {
-    try {
+    try {        
         // req.params.id -> es el documento
         const notificaciones = await NotificacionService.getNotificaciones(parseInt(req.params.id));
 
+        const response = await Promise.all(notificaciones.map(async (notificacion) => {
+                if(notificacion.descripcion === 'R') {
+                    const reclamo = await ReclamoService.getReclamo(notificacion.idGestion);
+                    return {
+                        id: reclamo.dataValues.idReclamo.toString(),
+                        idNotificacion: notificacion.idGestion.toString(),
+                        fecha: reclamo.dataValues.fecha,
+                        imgUsuario: reclamo.dataValues.archivosURL.split(';')[-1] ?? '',
+                        texto: reclamo.dataValues.estado,
+                        titulo: 'Reclamo',
+                    }
+                } else {
+                   const denuncia = await DenunciaService.getDenuncia(notificacion.idGestion);
+                   return {
+                        id: denuncia.dataValues.idDenuncia.toString(),
+                        idNotificacion: notificacion.idGestion.toString(),
+                        fecha: denuncia.dataValues.fechaDenuncia,
+                        imgUsuario: denuncia.dataValues.archivosURL.split(';')[-1] ?? '',
+                        texto: denuncia.dataValues.estado,
+                        titulo: 'Denuncia',
+                    }
+                }
+            })
+        )
+
         return res.status(200).json({
             status: 200,
-            data: notificaciones,
+            data: response,
             message: "Notificaciones exitosamente recibidas",
         });
     } catch (e) {
