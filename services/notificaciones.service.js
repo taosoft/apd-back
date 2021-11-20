@@ -10,7 +10,9 @@ exports.getNotificaciones = async (doc) => {
                 documento: doc,
                 visto: 0,
             },
-            order: ['id', 'DESC']
+            order: [
+                ['id', 'DESC'],
+            ]
         });
 
     } catch (error) {
