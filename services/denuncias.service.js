@@ -44,6 +44,7 @@ exports.getDenuncias = async (pagination, doc) => {
 
 exports.createDenuncia = async (newDenuncia) => {
     try {
+        console.log(newDenuncia)
         return await DenunciaModel.create(newDenuncia);
     } catch (error) {
         throw Error("Error while Creating a Denuncia | ", error);
@@ -51,7 +52,7 @@ exports.createDenuncia = async (newDenuncia) => {
 };
 
 exports.updateDenuncia = async (denunciaId, estadoDenuncia) => {
-    try {        
+    try {
         return await DenunciaModel.update(
             { estado: estadoDenuncia },
             { where: { idDenuncia: denunciaId } }

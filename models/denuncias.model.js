@@ -1,4 +1,4 @@
-const { Sequelize, DataTypes } = require('sequelize');
+const { DataTypes } = require('sequelize');
 const sequelize = require('../database');
 const Sitios = require('./sitios.model');
 const Users = require('./users.model');
@@ -34,7 +34,6 @@ const Denuncias = sequelize.define('denuncias',
         },
         fechaDenuncia: {
             type: DataTypes.DATE,
-            defaultValue: Sequelize.NOW,
             allowNull: false,
         },
         fechaHecho: {
