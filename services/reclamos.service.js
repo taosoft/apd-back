@@ -32,7 +32,7 @@ exports.getReclamos = async (quantity) => {
 
 exports.getReclamoDetalle = async (reclamoId) => {
     try {
-        return await ReclamosModel.findAll({
+        return await ReclamosModel.findOne({
             where: { idReclamo: reclamoId },
             include: [
                 { model: UserModel },
