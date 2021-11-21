@@ -15,7 +15,9 @@ exports.getSitios = async (quantity) => {
     try {
         return await SitioModel.findAll({
             limit: quantity,
-            order: ['idSitio']
+            order: [
+                ['idSitio', 'ASC']
+            ]
         });
     } catch (error) {
         throw Error("Error while searching Reclamos | ", error);
