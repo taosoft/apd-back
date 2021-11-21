@@ -46,6 +46,11 @@ const Servicios = sequelize.define('servicios',
             type: DataTypes.STRING,
             allowNull: false,
         },
+        aprobado: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 0,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );

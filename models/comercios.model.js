@@ -25,6 +25,11 @@ const Comercios = sequelize.define('comercios',
             type: DataTypes.STRING,
             allowNull: false,
         },
+        aprobado: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: 0,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
