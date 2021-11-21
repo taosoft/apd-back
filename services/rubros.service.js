@@ -6,7 +6,9 @@ _this = this;
 exports.getRubros = async () => {
     try {
         return await RubrosModel.findAll({
-            order: ['idRubro', 'descripcion']
+            order: [
+                ['idRubro', 'ASC']
+            ]
         });
     } catch (error) {
         throw Error(`Error al buscar todos los rubros | `, error);
