@@ -50,7 +50,7 @@ exports.updateNotification = async (req, res, next) => {
         // req.params.id -> id de la notificacion
         const datosNotificacion = {
             notificacionId: parseInt(req.params.id),
-            newVisto: 1,
+            newVisto: req.body.visto,
         }
         
         const notificacionUpdated = await NotificacionService.updateNotificacion(datosNotificacion);

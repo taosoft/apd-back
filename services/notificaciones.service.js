@@ -31,8 +31,6 @@ exports.createNotificacion = async (newNotificacion) => {
 
 exports.updateNotificacion = async ({ notificacionId, newVisto }) => {
     try {
-        console.log("Noti", notificacionId)
-        console.log("Visto", newVisto)
         return await NotificacionesModel.update(
             { visto: newVisto },
             { where: { id: notificacionId } }
