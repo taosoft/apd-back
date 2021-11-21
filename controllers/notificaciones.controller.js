@@ -15,7 +15,7 @@ exports.getNotificaciones = async (req, res, next) => {
                     const reclamo = await ReclamoService.getReclamo(notificacion.idGestion);
                     return {
                         id: reclamo.dataValues.idReclamo.toString(),
-                        idNotificacion: notificacion.idGestion.toString(),
+                        idNotificacion: notificacion.id.toString(),
                         fecha: reclamo.dataValues.fecha,
                         imgUsuario: reclamo.dataValues.archivosURL.split(';')[-1] ?? '',
                         texto: reclamo.dataValues.estado,
@@ -25,7 +25,7 @@ exports.getNotificaciones = async (req, res, next) => {
                    const denuncia = await DenunciaService.getDenuncia(notificacion.idGestion);
                    return {
                         id: denuncia.dataValues.idDenuncia.toString(),
-                        idNotificacion: notificacion.idGestion.toString(),
+                        idNotificacion: notificacion.id.toString(),
                         fecha: denuncia.dataValues.fechaDenuncia,
                         imgUsuario: denuncia.dataValues.archivosURL.split(';')[-1] ?? '',
                         texto: denuncia.dataValues.estado,
@@ -49,11 +49,13 @@ exports.updateNotification = async (req, res, next) => {
     try {
         // req.params.id -> id de la notificacion
         const datosNotificacion = {
-            notificacionId: req.params.id,
-            visto: 1,
+            notificacionId: parseInt(req.params.id),
+            newVisto: 1,
         }
         
         const notificacionUpdated = await NotificacionService.updateNotificacion(datosNotificacion);
+
+        console.log("Response", notificacionUpdated)
 
         return res.status(200).json({
             status: 200,

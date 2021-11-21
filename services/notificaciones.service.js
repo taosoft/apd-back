@@ -29,15 +29,15 @@ exports.createNotificacion = async (newNotificacion) => {
     }
 };
 
-exports.updateNotificacion = async (newNotificacionStatus) => {
+exports.updateNotificacion = async ({ notificacionId, newVisto }) => {
     try {
+        console.log("Noti", notificacionId)
+        console.log("Visto", newVisto)
         return await NotificacionesModel.update(
-            {
-                visto: newNotificacionStatus.visto,
-            },
-            { where: { id: newNotificacionStatus.notificacionId } }
+            { visto: newVisto },
+            { where: { id: notificacionId } }
         );
     } catch (error) {
-        throw Error(`Error al actualizar la notificacion #${newNotificacionStatus.notificacionId}`, error);
+        throw Error(`Error al actualizar la notificacion #${notificacionId}`, error);
     }
 };
