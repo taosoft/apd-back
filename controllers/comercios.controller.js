@@ -57,3 +57,22 @@ exports.createComercio = async (req, res, next) => {
         return res.status(400).json({ status: 400, message: e.message });
     }
 };
+
+exports.updateComercio = async (req, res, next) => {
+    try {
+        const datos = {
+            comercioId: parseInt(req.params.id),
+            estadoAprobado: req.body.aprobado,
+        }
+
+        const comercioAprobado = await ComercioService.updateComercio(datos);
+        
+        return res.status(200).json({
+            status: 200,
+            data: {aprobado: comercioAprobado[0] },
+            message: "Comercio Aprobado Exitosamente",
+        });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};

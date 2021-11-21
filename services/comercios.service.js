@@ -41,3 +41,15 @@ exports.existeComercio = async (nombreDelComercio) => {
         throw Error(`Error al buscar si el servicio ${nombreDelComercio} ya existe | `, error)
     }
 };
+
+exports.updateComercio = async ({comercioId, estadoAprobado}) => {
+    try {
+        return await ComercioModel.update(
+            { aprobado: estadoAprobado },
+            { where: { idComercio: comercioId } }
+        );
+        
+    } catch (error) {
+        throw Error(`Error actualizar el servicio ${comercioId} | `, error)
+    }
+};

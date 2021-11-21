@@ -7,6 +7,7 @@ router.get("/", ServicioController.getServicios);
 router.get("/:id", ServicioController.getServicio);
 router.get("/detalle/:id", ServicioController.getServicioDetalle);
 router.post("/", Authorization, ServicioController.createServicio);
+router.patch("/aprobar/:id", ServicioController.updateServicio);
 
 // Export the Router
 module.exports = router;
