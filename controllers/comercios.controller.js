@@ -18,7 +18,7 @@ exports.getComercio = async (req, res, next) => {
 
 exports.getComercios = async (req, res, next) => {
     try {
-        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 10;
+        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 100;
         const comercios = await ComercioService.getComercios(pagination);
 
         return res.status(200).json({

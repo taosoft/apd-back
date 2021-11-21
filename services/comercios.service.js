@@ -15,7 +15,9 @@ exports.getComercios = async (pagination) => {
     try {
         return await ComercioModel.findAll({
             limit: pagination,
-            order: ['idComercio', 'nombre']
+            order: [
+                ['idComercio', 'ASC']
+            ]
         });
     } catch (error) {
         throw Error("Error while searching Comercios | ", error);
