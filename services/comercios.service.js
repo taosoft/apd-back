@@ -15,6 +15,7 @@ exports.getComercios = async (pagination) => {
     try {
         return await ComercioModel.findAll({
             limit: pagination,
+            where: { aprobado: 1 },
             order: [
                 ['idComercio', 'ASC']
             ]

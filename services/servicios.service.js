@@ -29,7 +29,10 @@ exports.getServicios = async (pagination) => {
     try {
         return await ServicioModel.findAll({
             limit: pagination,
-            order: ['idServicio', 'nombreServicio']
+            where: { aprobado: 1 },
+            order: [
+                ['idServicio', 'ASC']
+            ]
         });
     } catch (error) {
         throw Error(`Error al buscar todos los servicios | `, error);
