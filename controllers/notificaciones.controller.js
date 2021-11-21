@@ -17,7 +17,7 @@ exports.getNotificaciones = async (req, res, next) => {
                         id: reclamo.dataValues.idReclamo.toString(),
                         idNotificacion: notificacion.id.toString(),
                         fecha: reclamo.dataValues.fecha,
-                        imgUsuario: reclamo.dataValues.archivosURL.split(';')[-1] ?? '',
+                        imgUsuario: reclamo.dataValues.archivosURL.split(';').pop() ?? '',
                         texto: reclamo.dataValues.estado,
                         titulo: 'Reclamo',
                     }
@@ -27,7 +27,7 @@ exports.getNotificaciones = async (req, res, next) => {
                         id: denuncia.dataValues.idDenuncia.toString(),
                         idNotificacion: notificacion.id.toString(),
                         fecha: denuncia.dataValues.fechaDenuncia,
-                        imgUsuario: denuncia.dataValues.archivosURL.split(';')[-1] ?? '',
+                        imgUsuario: denuncia.dataValues.archivosURL.split(';').pop() ?? '',
                         texto: denuncia.dataValues.estado,
                         titulo: 'Denuncia',
                     }
