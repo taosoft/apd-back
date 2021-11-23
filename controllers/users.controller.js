@@ -1,4 +1,5 @@
 const UserService = require("../services/users.service")
+const { enviarEmail } = require('../mailer/SendEmail')
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -20,6 +21,14 @@ exports.updateUser = async (req, res, next) => {
     try {
         const userUpdated = await UserService.updateUser(req.params.id, req.body);
         
+        const emailData = {
+            destination: userUpdated.dataValues.email,
+            subject: "Datos Personales Actualizados",
+            body: 
+                "Se ha actualizado su email y/o contraseña. Si ha sido usted, por favor desestime este email, de lo contrario contacte al municipio cuanto antes."
+        }
+        enviarEmail(emailData)
+
         return res.status(200).json({
             status: 200,
             data: userUpdated,

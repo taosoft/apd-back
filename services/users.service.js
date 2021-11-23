@@ -20,20 +20,14 @@ exports.updateUser = async (doc, user) => {
         if(!userDatabase) throw Error("User doesn't exist");
         let hashedPassword;
 
-        if(user.updateData.contraseña) {
-            hashedPassword = bcrypt.hashSync(user.updateData.contraseña, 8);
+        if(user.contraseña) {
+            hashedPassword = bcrypt.hashSync(user.contraseña, 8);
         }
 
-        const updatedUserData = {
-            email: user.updateData.email ?? userDatabase.email,
-            contraseña: hashedPassword ?? userDatabase.contraseña,
-        };
+        userDatabase.email = user.email ? user.email : userDatabase.email;
+        userDatabase.contraseña = user.contraseña ? hashedPassword : userDatabase.contraseña;
 
-        const updatedUser = await UserModel.update(updatedUserData, {
-            where: { documento: doc }
-        });
-
-        return updatedUser;
+        return await userDatabase.save();
 
     } catch (error) {
         throw Error("Error while updating User");
