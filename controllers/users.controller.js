@@ -46,11 +46,20 @@ exports.createUser = async (req, res, next) => {
             email: req.body.email,
             nombre: req.body.nombre,
             apellido: req.body.apellido,
-            contraseña: req.body.contraseña,
+            contraseña: Math.random().toString(36).slice(-8),
             inspector: req.body.inspector ?? 0,
         }
+
         const createdUser = await UserService.createUser(dataUser);
         
+        const emailData = {
+            destination: dataUser.email,
+            subject: "Usuario creado",
+            body: 
+                `Se le ha asignado un usuario para la aplicación "Municipalidad".\nDeberá ingresar con su documento y contraseña: ${dataUser.contraseña}.\nPor favor cambie la misma cuanto antes, ingresando en la sección "Perfil" de la aplicación.`
+        }
+        enviarEmail(emailData)
+
         return res.status(200).json({
             status: 200,
             data: createdUser,
