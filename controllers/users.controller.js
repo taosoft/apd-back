@@ -83,3 +83,33 @@ exports.loginUser = async (req, res, next) => {
         return res.status(400).json({ status: 400, message: e.message });
     }
 };
+
+exports.resetPassword = async (req, res, next) => {
+    try {   
+        const user = await UserService.getUser(req.params.id);
+        
+        if(!user) throw Error("User doesn't exist");
+
+        const userData = {
+            email: user.dataValues.email,
+            contraseña: Math.random().toString(36).slice(-8)
+        }
+
+        await UserService.updateUser(req.params.id, userData);
+
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: "Recupero de contraseña",
+            body: 
+                `Su nueva contraseña es: ${userData.contraseña}. Por favor cambiarla cuanto antes.`
+        }
+        enviarEmail(emailData)
+
+        return res.status(200).json({ 
+            data: userData.contraseña,
+            message: "Contraseña blanqueada exitosamente"
+        });
+    } catch (e) {
+        return res.status(400).json({ status: 400, message: e.message });
+    }
+};

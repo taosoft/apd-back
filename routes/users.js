@@ -7,6 +7,7 @@ router.get("/:id", Authorization, UserController.getUser);
 router.put("/:id", Authorization, UserController.updateUser);
 router.post("/", UserController.createUser);
 router.post("/login", UserController.loginUser);
+router.post("/reset/:id", UserController.resetPassword);
 
 // Export the Router
 module.exports = router;
