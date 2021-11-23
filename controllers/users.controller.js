@@ -19,7 +19,7 @@ exports.getUser = async (req, res, next) => {
 
 exports.updateUser = async (req, res, next) => {
     try {
-        const userUpdated = await UserService.updateUser(req.params.id, req.body);
+        const userUpdated = await UserService.updateUser(parseInt(req.params.id), req.body);
         
         const emailData = {
             destination: userUpdated.dataValues.email,
