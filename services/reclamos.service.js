@@ -68,27 +68,41 @@ exports.existeVecino = async (documento) => {
 
 // };
 
-exports.updateReclamo = async (reclamoId, datosReclamo) => {
-    try {
+// exports.updateReclamo = async (reclamoId, datosReclamo) => {
+//     try {
 
-        let bitacoraUpdate;
-        bitacoraNow = await ReclamosModel.findOne({
-            attributes: ['bitacora'],
-            where: {
-                idReclamo: reclamoId,
-            }
-        }).then( bitacoraNow => {
-            bitacoraUpdate = bitacoraNow.dataValues.bitacora + ";" + `El reclamo #${reclamoId} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`;
-            return bitacoraUpdate;
-        }).then(async bitacoraUpdate => {
-            return await ReclamosModel.update(
-                {
-                    bitacora: bitacoraUpdate,
-                    estado: datosReclamo.estado
-                },
-                { where: { idReclamo: reclamoId } }
-            )
-        })
+//         let bitacoraUpdate;
+//         bitacoraNow = await ReclamosModel.findOne({
+//             attributes: ['bitacora'],
+//             where: {
+//                 idReclamo: reclamoId,
+//             }
+//         }).then( bitacoraNow => {
+//             bitacoraUpdate = bitacoraNow.dataValues.bitacora + ";" + `El reclamo #${reclamoId} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`;
+//             return bitacoraUpdate;
+//         }).then(async bitacoraUpdate => {
+//             return await ReclamosModel.update(
+//                 {
+//                     bitacora: bitacoraUpdate,
+//                     estado: datosReclamo.estado
+//                 },
+//                 { where: { idReclamo: reclamoId } }
+//             )
+//         })
+//     } catch (error) {
+//         throw Error("Error while updating Reclamo | ", error);
+//     }
+// };
+
+exports.updateReclamo = async (reclamoId, datosReclamo) => {
+    try {       
+        const reclamo = await ReclamosModel.findByPk(reclamoId);
+
+        reclamo.bitacora = reclamo.dataValues.bitacora + ";" + `El reclamo #${reclamoId} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`;
+        reclamo.estado = datosReclamo.estado;
+
+        return await reclamo.save();
+
     } catch (error) {
         throw Error("Error while updating Reclamo | ", error);
     }

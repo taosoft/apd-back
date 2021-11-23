@@ -1,6 +1,8 @@
 const ReclamoService = require("../services/reclamos.service");
 const MovimientoReclamosService = require("../services/movimientoReclamo.service");
 const NotificacionService = require("../services/notificaciones.service");
+const UserService = require('../services/users.service');
+const { enviarEmail } = require('../mailer/SendEmail');
 const moment = require("moment");
 
 // Saving the context of this module inside the _the variable
@@ -8,7 +10,7 @@ _this = this;
 
 exports.getReclamo = async (req, res, next) => {
     try {
-        const reclamo = await ReclamoService.getReclamo(req.params.id);
+        const reclamo = await ReclamoService.getReclamo(parseInt(req.params.id));
         return res.status(200).json({
             status: 200,
             data: reclamo,
@@ -36,7 +38,7 @@ exports.getReclamos = async (req, res, next) => {
 
 exports.getReclamoDetalle = async (req, res, next) => {
     try {
-        const reclamo = await ReclamoService.getReclamoDetalle(req.params.id);
+        const reclamo = await ReclamoService.getReclamoDetalle(parseInt(req.params.id));
 
         return res.status(200).json({
             status: 200,
@@ -60,6 +62,10 @@ exports.createReclamo = async (req, res, next) => {
             bitacora: `Reclamo creado el ${moment().locale('es').format('LLL')} hs`,
         }
 
+        const user = await UserService.getUser(datosReclamo.documento);
+        
+        if(!user) throw Error(`El usuario con documento ${datosReclamo.documento} no existe`);
+
         const reclamosCreated = await ReclamoService.createReclamo(datosReclamo);
 
         const datosMovimientoReclamo = {
@@ -74,8 +80,16 @@ exports.createReclamo = async (req, res, next) => {
             descripcion: 'R',
         }
 
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: "Reclamo generado",
+            body: 
+                `Su reclamo ha sido generado.\nEl número para su seguimiento es el #${datosMovimientoReclamo.idReclamo}`
+        }
+
         await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
         await NotificacionService.createNotificacion(datosNotificacion);
+        enviarEmail(emailData);
 
         return res.status(200).json({
             status: 200,
@@ -98,6 +112,7 @@ exports.updateReclamo = async (req, res, next) => {
         if (req.body.estado.indexOf(";") > -1) {
             throw new SyntaxError("No puede incluir el caracter ; en estado");
         }
+
         const datosReclamo = {
             estado: req.body.estado,
         }
@@ -107,10 +122,20 @@ exports.updateReclamo = async (req, res, next) => {
         const datosMovimientoReclamo = {
             idReclamo: parseInt(req.params.id),
             responsable: "Municipio",
-            causa: `El reclamo #${reclamoId} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`,
+            causa: `El reclamo #${req.params.id} cambió su estado a: ${datosReclamo.estado} a las ${moment().locale('es').format('LLL')} hs`,
         }
 
-        const movimientoReclamo = await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
+        const user = await UserService.getUser(parseInt(reclamoUpdated.dataValues.documento));
+
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: `Nuevo estado del reclamo #${datosMovimientoReclamo.idReclamo}`,
+            body: 
+                `El estado de su reclamo #${datosMovimientoReclamo.idReclamo} ha sido cambiado a "${datosReclamo.estado}".`
+        }
+
+        await MovimientoReclamosService.createMovimientoReclamo(datosMovimientoReclamo);
+        enviarEmail(emailData);
 
         return res.status(200).json({
             status: 200,
