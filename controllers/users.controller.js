@@ -104,7 +104,7 @@ exports.resetPassword = async (req, res, next) => {
             contraseña: Math.random().toString(36).slice(-8)
         }
 
-        const userUpdated = await UserService.updateUser(req.params.id, userData);
+        const userUpdated = await UserService.updateUser(parseInt(req.params.id), userData);
 
         const emailData = {
             destination: userUpdated.dataValues.email,
