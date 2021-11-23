@@ -1,6 +1,8 @@
 const DenunciaService = require("../services/denuncias.service");
 const MovimientoDenunciasService = require('../services/movimientoDenuncia.service');
 const NotificacionService = require('../services/notificaciones.service');
+const UserService = require('../services/users.service');
+const { enviarEmail } = require('../mailer/SendEmail');
 const moment = require('moment');
 
 // Saving the context of this module inside the _the variable
@@ -60,6 +62,10 @@ exports.createDenuncia = async (req, res, next) => {
             archivosURL: req.body.archivosURL ?? '',
         }
 
+        const user = await UserService.getUser(datosDenuncia.documento);
+        
+        if(!user) throw Error(`El usuario con documento ${datosDenuncia.documento} no existe`);
+
         const denunciaCreated = await DenunciaService.createDenuncia(datosDenuncia);
 
         const datosMovimientoDenuncia = {
@@ -69,13 +75,21 @@ exports.createDenuncia = async (req, res, next) => {
         }
 
         const datosNotificacion = {
-            documento: datosReclamo.documento,
-            idGestion: reclamosCreated.idReclamo,
-            descripcion: 'R',
+            documento: datosDenuncia.documento,
+            idGestion: denunciaCreated.idDenuncia,
+            descripcion: 'D',
+        }
+
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: "Denuncia generada",
+            body: 
+                `Su denuncia ha sido generada.\nEl número para su seguimiento es el #${datosMovimientoDenuncia.idDenuncia}`
         }
 
         await MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
         await NotificacionService.createNotificacion(datosNotificacion);
+        enviarEmail(emailData);
 
         return res.status(200).json({
             status: 200,
@@ -90,24 +104,30 @@ exports.createDenuncia = async (req, res, next) => {
 
 exports.updateDenuncia = async (req, res, next) => {
     try {
-        const nuevoEstadoDenuncia = {
-            estado: req.body.estado,
-        }
-
-        const denunciaUpdated = await DenunciaService.updateDenuncia(parseInt(req.params.id), nuevoEstadoDenuncia);
+        const denunciaUpdated = await DenunciaService.updateDenuncia(parseInt(req.params.id), req.body.estado);
 
         const datosMovimientoDenuncia = {
             idDenuncia: denunciaUpdated.idDenuncia,
             responsable: "Municipio",
-            causa: `La denuncia #${idDenuncia} cambió su estado a: ${denunciaUpdated.estado} a las ${moment().locale('es').format('LLL')} hs`,
+            causa: `La denuncia #${req.params.id} cambió su estado a: ${denunciaUpdated.estado} a las ${moment().locale('es').format('LLL')} hs`,
+        }
+
+        const user = await UserService.getUser(parseInt(denunciaUpdated.dataValues.documento));
+
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: `Nuevo estado de la denuncia #${datosMovimientoDenuncia.idDenuncia}`,
+            body: 
+                `El estado de su denuncia #${datosMovimientoDenuncia.idDenuncia} ha sido cambiada a "${req.body.estado}".`
         }
 
         await MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
+        enviarEmail(emailData);
 
         return res.status(200).json({
             status: 200,
             data: denunciaUpdated,
-            message: "Successfully Reclamo Updated",
+            message: "Successfully Denuncia Updated",
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });

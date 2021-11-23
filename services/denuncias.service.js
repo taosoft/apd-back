@@ -53,10 +53,12 @@ exports.createDenuncia = async (newDenuncia) => {
 
 exports.updateDenuncia = async (denunciaId, estadoDenuncia) => {
     try {
-        return await DenunciaModel.update(
-            { estado: estadoDenuncia },
-            { where: { idDenuncia: denunciaId } }
-        )
+        const denuncia = await DenunciaModel.findByPk(denunciaId);
+
+        denuncia.estado = estadoDenuncia;
+
+        return await denuncia.save();
+
     } catch (error) {
         throw Error("Error while updating Denuncia | ", error);
     }
