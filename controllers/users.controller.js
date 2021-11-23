@@ -95,10 +95,10 @@ exports.resetPassword = async (req, res, next) => {
             contraseña: Math.random().toString(36).slice(-8)
         }
 
-        await UserService.updateUser(req.params.id, userData);
+        const userUpdated = await UserService.updateUser(req.params.id, userData);
 
         const emailData = {
-            destination: user.dataValues.email,
+            destination: userUpdated.dataValues.email,
             subject: "Recupero de contraseña",
             body: 
                 `Su nueva contraseña es: ${userData.contraseña}. Por favor cambiarla cuanto antes.`
@@ -106,7 +106,7 @@ exports.resetPassword = async (req, res, next) => {
         enviarEmail(emailData)
 
         return res.status(200).json({ 
-            data: userData.contraseña,
+            data: true,
             message: "Contraseña blanqueada exitosamente"
         });
     } catch (e) {
