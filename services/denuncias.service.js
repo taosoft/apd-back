@@ -32,7 +32,12 @@ exports.getDenunciaDetalle = async (denunciaId) => {
 exports.getDenuncias = async (pagination, doc) => {
     try {
         return await DenunciaModel.findAll({
-            where: { documento: doc },
+            where: {
+                [Op.or]: [
+                  {  documento: doc },
+                  { documentoDenunciado: doc }
+                ]
+            },
             limit: pagination,
             order: ['idDenuncia', 'documento']
         });

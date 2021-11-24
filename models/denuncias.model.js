@@ -43,6 +43,11 @@ const Denuncias = sequelize.define('denuncias',
         archivosURL: {
             type: DataTypes.STRING,
             allowNull: true,
+        },
+        documentoDenunciado: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: null,
         }
     }, 
     { freezeTableName: true, timestamps: false }
