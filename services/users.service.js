@@ -56,7 +56,7 @@ exports.loginUser = async (user) => {
     try {
         const _details = await UserModel.findOne({ where: { documento: user.documento }});
 
-        const passwordIsValid = bcrypt.compareSync(user.contraseña, _details.dataValues.contraseña);
+        const passwordIsValid = bcrypt.compareSync(user.contraseña, _details.contraseña);
 
         if (!passwordIsValid) throw Error("Invalid username/password");
 
@@ -65,21 +65,10 @@ exports.loginUser = async (user) => {
             process.env.SECRET,
             { expiresIn: "1d", }
         );
-        
-        return { token: token, user: _details.dataValues };
+        console.log(token)
+        return { token: token, user: _details };
     } catch (e) {
         // return a Error message describing the reason
-        throw Error("Error while Login User");
-    }
-};
-
-exports.existeUser = async (documento) => {
-    try {
-        const existeVecino = await UserModel.findOne({ where: { documento } });
-
-        if (existeVecino === null) return false;
-        else return true;
-    } catch (error) {
-        throw Error("Error while searching vecino | ", error)
+        throw Error("Error while Login User | " + e);
     }
 };

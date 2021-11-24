@@ -107,9 +107,9 @@ exports.updateDenuncia = async (req, res, next) => {
         const denunciaUpdated = await DenunciaService.updateDenuncia(parseInt(req.params.id), req.body.estado);
 
         const datosMovimientoDenuncia = {
-            idDenuncia: denunciaUpdated.idDenuncia,
+            idDenuncia: req.params.id,
             responsable: "Municipio",
-            causa: `La denuncia #${req.params.id} cambió su estado a: ${denunciaUpdated.estado} a las ${moment().locale('es').format('LLL')} hs`,
+            causa: `La denuncia #${req.params.id} cambió su estado a: ${req.body.estado} a las ${moment().locale('es').format('LLL')} hs`,
         }
 
         const user = await UserService.getUser(parseInt(denunciaUpdated.dataValues.documento));
