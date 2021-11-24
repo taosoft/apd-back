@@ -20,7 +20,7 @@ exports.getUser = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
     try {
         const userUpdated = await UserService.updateUser(parseInt(req.params.id), req.body);
-        console.log(userUpdated)
+
         const emailData = {
             destination: userUpdated.dataValues.email,
             subject: "Datos Personales Actualizados",
