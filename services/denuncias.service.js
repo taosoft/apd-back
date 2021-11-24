@@ -1,6 +1,7 @@
 const DenunciaModel = require('../models/denuncias.model');
 const UserModel = require('../models/users.model');
 const SitioModel = require('../models/sitios.model');
+const { Op } = require('sequelize');
 
 // Saving the context of this module inside the _the variable
 _this = this;

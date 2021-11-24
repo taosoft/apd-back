@@ -41,7 +41,7 @@ const Denuncias = sequelize.define('denuncias',
             allowNull: false,
         },
         archivosURL: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: true,
         },
         documentoDenunciado: {
