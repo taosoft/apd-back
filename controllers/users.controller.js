@@ -49,6 +49,7 @@ exports.createUser = async (req, res, next) => {
             apellido: req.body.apellido,
             contraseña: Math.random().toString(36).slice(-8),
             inspector: req.body.inspector ?? 0,
+            idRubro: req.body.idRubro ?? null,
         }
 
         const createdUser = await UserService.createUser(dataUser);

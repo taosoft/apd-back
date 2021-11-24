@@ -1,11 +1,19 @@
 const RubroService = require("../services/rubros.service");
+const UserService = require("../services/users.service")
 
 // Saving the context of this module inside the _the variable
 _this = this;
 
 exports.getRubros = async (req, res, next) => {
     try {
-        const rubros = await RubroService.getRubros();
+        let rubros;
+        const user = await UserService.getUser(req.documento);
+
+        if (user.dataValues.inspector === 1) {
+            rubros = await RubroService.getRubrosInspector(user.dataValues.idRubro);
+        } else {
+            rubros = await RubroService.getRubros();
+        }
 
         return res.status(200).json({
             status: 200,

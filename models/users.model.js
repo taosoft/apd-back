@@ -28,19 +28,13 @@ const Users = sequelize.define('users',
             type: DataTypes.INTEGER,
             defaultValue: 0, // No inspector
             allowNull: false,
+        },
+        idRubro: {
+            type: DataTypes.INTEGER,
+            allowNull: true,
         }
     }, 
     { freezeTableName: true, timestamps: false }
 );
 
 module.exports = Users;
-
-// create table vecinos(
-// 	documento varchar(20) not null,
-// 	nombre varchar(150) not null,
-// 	apellido varchar(150) not null,
-// 	direccion varchar(250) null, 
-// 	codigoBarrio int null
-// 	constraint pk_vecinos primary key (documento),
-// 	constraint fk_vecinos_barrios foreign key (codigoBarrio) references barrios
-// )
