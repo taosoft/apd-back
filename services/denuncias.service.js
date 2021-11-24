@@ -19,8 +19,8 @@ exports.getDenunciaDetalle = async (denunciaId) => {
         return await DenunciaModel.findOne( {
             where: { idDenuncia: denunciaId },
             include: [ 
-                {model: UserModel },
-                {model: SitioModel },
+                { model: UserModel },
+                { model: SitioModel },
             ]
         });
     } catch (error) {
@@ -34,7 +34,7 @@ exports.getDenuncias = async (pagination, doc) => {
         return await DenunciaModel.findAll({
             where: {
                 [Op.or]: [
-                  {  documento: doc },
+                  { documento: doc },
                   { documentoDenunciado: doc }
                 ]
             },
