@@ -94,7 +94,7 @@ exports.loginUser = async (req, res, next) => {
 };
 
 exports.resetPassword = async (req, res, next) => {
-    try {   
+    try {
         const user = await UserService.getUser(req.params.id);
         
         if(!user) throw Error("User doesn't exist");
