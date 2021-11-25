@@ -122,7 +122,14 @@ exports.updateDenuncia = async (req, res, next) => {
                 `El estado de su denuncia #${datosMovimientoDenuncia.idDenuncia} ha sido cambiada a "${req.body.estado}".`
         }
 
+        const datosNotificacion = {
+            documento: denunciaUpdated.dataValues.documento,
+            idGestion: denunciaUpdated.dataValues.idDenuncia,
+            descripcion: 'D',
+        }
+
         await MovimientoDenunciasService.createMovimientoDenuncia(datosMovimientoDenuncia);
+        await NotificacionService.createNotificacion(datosNotificacion);
         enviarEmail(emailData);
 
         return res.status(200).json({
