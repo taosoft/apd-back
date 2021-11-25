@@ -91,7 +91,7 @@ exports.updateComercio = async (req, res, next) => {
 
         return res.status(200).json({
             status: 200,
-            data: {aprobado: comercioAprobado[0] },
+            data: {aprobado: comercioAprobado },
             message: req.body.asunto,
         });
     } catch (e) {
