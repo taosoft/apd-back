@@ -24,8 +24,8 @@ exports.updateUser = async (doc, user) => {
             hashedPassword = bcrypt.hashSync(user.contraseña, 8);
         }
 
-        userDatabase.email = user.email ? user.email : userDatabase.email;
-        userDatabase.contraseña = user.contraseña ? hashedPassword : userDatabase.contraseña;
+        userDatabase.email = user.email ? user.email : userDatabase.dataValues.email;
+        userDatabase.contraseña = user.contraseña ? hashedPassword : userDatabase.dataValues.contraseña;
         
         return await userDatabase.save();
 
