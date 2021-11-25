@@ -9,6 +9,7 @@ exports.getRubros = async (req, res, next) => {
         let rubros;
 
         if (req.tipoUsuario === 1) {
+            const user = await UserService.getUser(req.documento);
             rubros = await RubroService.getRubrosInspector(user.dataValues.idRubro);
         } else {
             rubros = await RubroService.getRubros();

@@ -26,6 +26,7 @@ exports.getReclamos = async (req, res, next) => {
         let reclamos;
         
         if (req.tipoUsuario === 1) {
+            const user = await UserService.getUser(req.documento);
             reclamos = await ReclamoService.getReclamosInspector(user.dataValues.idRubro);
         } else {
             reclamos = await ReclamoService.getReclamos();
