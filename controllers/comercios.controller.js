@@ -42,6 +42,7 @@ exports.createComercio = async (req, res, next) => {
             nombre: req.body.nombre,
             horario: req.body.horario,
             descripcion: req.body.descripcion,
+            direccion: req.body.direccion,
             archivosURL: req.body.archivosURL ? req.body.archivosURL : ''
         }
 

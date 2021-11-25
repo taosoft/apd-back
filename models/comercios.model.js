@@ -13,6 +13,10 @@ const Comercios = sequelize.define('comercios',
             type: DataTypes.STRING,
             allowNull: false,
         },
+        direccion: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
         horario: {
             type: DataTypes.STRING,
             allowNull: false,

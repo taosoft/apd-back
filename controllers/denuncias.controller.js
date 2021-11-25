@@ -58,7 +58,7 @@ exports.createDenuncia = async (req, res, next) => {
             estado: "Iniciado",
             aceptaResponsabilidad: req.body.aceptaResponsabilidad ?? 1,
             fechaDenuncia: moment(),
-            fechaHecho: req.body.fechaHecho ?? moment(),
+            fechaHecho: req.body.fechaHecho ? moment(req.body.fechaHecho) : moment(),
             archivosURL: req.body.archivosURL ?? '',
             documentoDenunciado: req.body.documentoDenunciado ?? null,
         }
