@@ -2,6 +2,7 @@ const ReclamosModel = require('../models/reclamos.model');
 const VecinosModel = require("../models/vecinos.model");
 const UserModel = require('../models/users.model');
 const SitioModel = require('../models/sitios.model');
+const RubroModel = require('../models/rubros.model');
 const DesperfectoModel = require('../models/desperfectos.model');
 const moment = require("moment");
 
@@ -49,8 +50,9 @@ exports.getReclamoDetalle = async (reclamoId) => {
             where: { idReclamo: reclamoId },
             include: [
                 { model: UserModel },
-                { model: SitioModel},
-                { model: DesperfectoModel}
+                { model: SitioModel },
+                { model: DesperfectoModel },
+                { model: RubroModel },
             ]
         });
     } catch (error) {
