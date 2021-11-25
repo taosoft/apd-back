@@ -81,10 +81,8 @@ exports.updateComercio = async (req, res, next) => {
 
         const comercioAprobado = await ComercioService.updateComercio(datos);
         
-        const user = await UserService.getUser(req.documento);
-        
         const emailData = {
-            destination: user.dataValues.email,
+            destination: comercioAprobado.dataValues.email,
             subject: req.body.asunto,
             body: req.body.descripcion
         }

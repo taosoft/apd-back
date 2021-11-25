@@ -43,10 +43,13 @@ exports.existeComercio = async (nombreDelComercio) => {
 
 exports.updateComercio = async ({comercioId, estadoAprobado}) => {
     try {
-        return await ComercioModel.update(
-            { aprobado: estadoAprobado },
-            { where: { idComercio: comercioId } }
-        );
+        const comercio = await ComercioModel.findOne({
+            where: { idComercio: comercioId }
+        })
+
+        comercio.aprobado = estadoAprobado;
+
+        return await comercio.save();
         
     } catch (error) {
         throw Error(`Error actualizar el servicio ${comercioId} | `, error)
