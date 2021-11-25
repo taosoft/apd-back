@@ -3,7 +3,7 @@ const router = express.Router();
 const NotificacionController = require("../controllers/notificaciones.controller");
 const Authorization = require("../authorization/authorization");
 
-router.get("/:id", Authorization, NotificacionController.getNotificaciones);
+router.get("/", Authorization, NotificacionController.getNotificaciones);
 router.patch("/:id", Authorization, NotificacionController.updateNotification);
 
 // Export the Router

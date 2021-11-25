@@ -8,7 +8,7 @@ _this = this;
 exports.getNotificaciones = async (req, res, next) => {
     try {        
         // req.params.id -> es el documento
-        const notificaciones = await NotificacionService.getNotificaciones(parseInt(req.params.id));
+        const notificaciones = await NotificacionService.getNotificaciones(req.documento);
 
         const response = await Promise.all(notificaciones.map(async (notificacion) => {
                 if(notificacion.descripcion === 'R') {
