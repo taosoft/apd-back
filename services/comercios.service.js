@@ -38,7 +38,7 @@ exports.existeComercio = async (nombreDelComercio) => {
         return await ComercioModel.count({ where: { nombre: nombreDelComercio } });
         
     } catch (error) {
-        throw Error(`Error al buscar si el servicio ${nombreDelComercio} ya existe | `, error)
+        throw Error(`Error al buscar si el comercio ${nombreDelComercio} ya existe | `, error)
     }
 };
 
