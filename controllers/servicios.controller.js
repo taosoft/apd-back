@@ -70,8 +70,7 @@ exports.createServicio = async (req, res, next) => {
         const emailData = {
             destination: user.dataValues.email,
             subject: "Creación de servicio",
-            body: 
-                "Se ha enviado su solicitud de aprobación al municipio."
+            body: "Se ha enviado su solicitud de aprobación al municipio.\nSerá comunicado vía el email que proporcionó en el servicio si el mismo fue aprobado o no."
         }
 
         enviarEmail(emailData)
@@ -89,8 +88,6 @@ exports.createServicio = async (req, res, next) => {
 
 exports.updateServicio = async (req, res, next) => {
     try {
-        let subj, bod;
-
         const datos = {
             servicioId: parseInt(req.params.id),
             estadoAprobado: req.body.aprobado,
@@ -98,26 +95,18 @@ exports.updateServicio = async (req, res, next) => {
 
         const servicioAprobado = await ServicioService.updateServicio(datos);
         
-        if (req.body.aprobado === 1) {
-            subj = "Servicio aprobado"
-            bod = "El servicio solicitado fue aprobado por el municipio y ya se encuentra habilitado en nuestra aplicación."
-        } else {
-            subj = "Servicio rechazado"
-            bod = "El servicio solicitado no fue aprobado por el municipio."
-        }
-
         const emailData = {
             destination: servicioAprobado.dataValues.email,
-            subject: subj,
-            body: bod
+            subject: req.body.asunto,
+            body: req.body.descripcion
         }
 
         enviarEmail(emailData)
 
         return res.status(200).json({
             status: 200,
-            data: {aprobado: servicioAprobado[0] },
-            message: subj,
+            data: { aprobado: servicioAprobado[0] },
+            message: req.body.asunto,
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });

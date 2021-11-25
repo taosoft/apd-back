@@ -20,8 +20,7 @@ exports.getComercio = async (req, res, next) => {
 
 exports.getComercios = async (req, res, next) => {
     try {
-        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 100;
-        const comercios = await ComercioService.getComercios(pagination);
+        const comercios = await ComercioService.getComercios();
 
         return res.status(200).json({
             status: 200,
@@ -40,17 +39,18 @@ exports.createComercio = async (req, res, next) => {
             throw new Error(`El comercio ${req.body.nombre} ya existe`);
         }
 
+        const user = await UserService.getUser(req.documento);
+
         const datosComercio = {
             nombre: req.body.nombre,
             horario: req.body.horario,
             descripcion: req.body.descripcion,
             direccion: req.body.direccion,
-            archivosURL: req.body.archivosURL ? req.body.archivosURL : ''
+            archivosURL: req.body.archivosURL ? req.body.archivosURL : '',
+            email: user.dataValues.email,
         }
 
         const comercioCreated = await ComercioService.createComercio(datosComercio);
-
-        const user = await UserService.getUser(req.documento);
 
         const emailData = {
             destination: user.dataValues.email,
@@ -81,10 +81,20 @@ exports.updateComercio = async (req, res, next) => {
 
         const comercioAprobado = await ComercioService.updateComercio(datos);
         
+        const user = await UserService.getUser(req.documento);
+        
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: req.body.asunto,
+            body: req.body.descripcion
+        }
+        
+        enviarEmail(emailData)
+
         return res.status(200).json({
             status: 200,
             data: {aprobado: comercioAprobado[0] },
-            message: "Comercio Aprobado Exitosamente",
+            message: req.body.asunto,
         });
     } catch (e) {
         return res.status(400).json({ status: 400, message: e.message });

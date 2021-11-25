@@ -11,10 +11,9 @@ exports.getComercio = async (comercioId) => {
     }
 };
 
-exports.getComercios = async (pagination) => {
+exports.getComercios = async () => {
     try {
         return await ComercioModel.findAll({
-            limit: pagination,
             where: { aprobado: 1 },
             order: [
                 ['idComercio', 'ASC']
