@@ -23,8 +23,14 @@ exports.getReclamo = async (req, res, next) => {
 
 exports.getReclamos = async (req, res, next) => {
     try {
-        const pagination = req.query.quantity ? parseInt(req.query.quantity) : 100;
-        const reclamos = await ReclamoService.getReclamos(pagination);
+        let reclamos;
+        const user = await UserService.getUser(req.documento);
+        
+        if (user.dataValues.inspector === 1) {
+            reclamos = await ReclamoService.getReclamosInspector(user.dataValues.idRubro);
+        } else {
+            reclamos = await ReclamoService.getReclamos();
+        } 
 
         return res.status(200).json({
             status: 200,
@@ -55,6 +61,7 @@ exports.createReclamo = async (req, res, next) => {
         const datosReclamo = {
             documento: req.documento,
             idSitio: +req.body.idSitio,
+            idRubro: +req.id.rubro,
             idDesperfecto: +req.body.idDesperfecto,
             descripcion: req.body.descripcion ? req.body.descripcion : '',
             estado: "Iniciado",

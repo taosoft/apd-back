@@ -16,10 +16,23 @@ exports.getReclamo = async (reclamoId) => {
     }
 };
 
-exports.getReclamos = async (quantity) => {
+exports.getReclamos = async () => {
     try {
         return await ReclamosModel.findAll({
-            limit: quantity,
+            order: ['idReclamo', 'documento'],
+            include: [
+                { model: SitioModel},
+            ]
+        });
+    } catch (error) {
+        throw Error("Error while searching Reclamos | ", error);
+    }
+};
+
+exports.getReclamosInspector = async (rubroId) => {
+    try {
+        return await ReclamosModel.findAll({
+            where: { idRubro: rubroId },
             order: ['idReclamo', 'documento'],
             include: [
                 { model: SitioModel},
