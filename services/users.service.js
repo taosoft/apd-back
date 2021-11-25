@@ -61,7 +61,10 @@ exports.loginUser = async (user) => {
         if (!passwordIsValid) throw Error("Invalid username/password");
 
         const token = jwt.sign(
-            { documento: _details.dataValues.documento, },
+            { 
+                documento: _details.dataValues.documento,
+                tipoUsuario: _details.dataValues.inspector,
+            },
             process.env.SECRET,
             { expiresIn: "1d", }
         );

@@ -7,9 +7,8 @@ _this = this;
 exports.getRubros = async (req, res, next) => {
     try {
         let rubros;
-        const user = await UserService.getUser(req.documento);
 
-        if (user.dataValues.inspector === 1) {
+        if (req.tipoUsuario === 1) {
             rubros = await RubroService.getRubrosInspector(user.dataValues.idRubro);
         } else {
             rubros = await RubroService.getRubros();
