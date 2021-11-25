@@ -1,4 +1,5 @@
 const ComercioService = require("../services/comercios.service");
+const UserService = require("../services/users.service");
 
 // Saving the context of this module inside the _the variable
 _this = this;
@@ -47,6 +48,17 @@ exports.createComercio = async (req, res, next) => {
         }
 
         const comercioCreated = await ComercioService.createComercio(datosComercio);
+
+        const user = await UserService.getUser(req.documento);
+
+        const emailData = {
+            destination: user.dataValues.email,
+            subject: "Creación de comercio",
+            body: 
+                "Se ha enviado su solicitud de aprobación al municipio."
+        }
+
+        enviarEmail(emailData)
 
         return res.status(200).json({
             status: 200,

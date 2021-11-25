@@ -58,10 +58,13 @@ exports.existeServicio = async (nombreDelServicio) => {
 
 exports.updateServicio = async ({servicioId, estadoAprobado}) => {
     try {
-        return await ServicioModel.update(
-            { aprobado: estadoAprobado },
-            { where: { idServicio: servicioId } }
-        );
+        const servicio = await ServicioModel.findOne({
+            where: { idServicio: servicioId }
+        })
+
+        servicio.aprobado = estadoAprobado;
+
+        return await servicio.save();
         
     } catch (error) {
         throw Error(`Error actualizar el servicio ${servicioId} | `, error)
