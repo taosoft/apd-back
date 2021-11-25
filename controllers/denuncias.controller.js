@@ -61,6 +61,8 @@ exports.createDenuncia = async (req, res, next) => {
             fechaHecho: req.body.fechaHecho ? moment(req.body.fechaHecho) : moment(),
             archivosURL: req.body.archivosURL ?? '',
             documentoDenunciado: req.body.documentoDenunciado ?? null,
+            name: req.body.name,
+            address: req.body.address
         }
 
         const user = await UserService.getUser(datosDenuncia.documento);

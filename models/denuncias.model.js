@@ -48,7 +48,13 @@ const Denuncias = sequelize.define('denuncias',
             type: DataTypes.STRING,
             allowNull: true,
             defaultValue: null,
-        }
+        },
+        name: {
+            type: DataTypes.STRING,
+        },
+        address: {
+            type: DataTypes.STRING,
+        },
     }, 
     { freezeTableName: true, timestamps: false }
 );
