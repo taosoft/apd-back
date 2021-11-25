@@ -8,7 +8,7 @@ router.get("/:id", Authorization, ReclamoController.getReclamo);
 router.get("/detalle/:id", Authorization, ReclamoController.getReclamoDetalle);
 router.post("/", Authorization, ReclamoController.createReclamo);
 // router.post("/unificar", ReclamoController.unificarReclamo); //Lo hace el municipio
-router.patch("/:id", Authorization, ReclamoController.updateReclamo);
+router.patch("/:id", ReclamoController.updateReclamo);
 
 // Export the Router
 module.exports = router;

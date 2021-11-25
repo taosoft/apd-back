@@ -7,7 +7,7 @@ router.get("/usuario", Authorization, DenunciaController.getDenuncias);
 router.get("/:id", Authorization, DenunciaController.getDenuncia);
 router.get("/detalle/:id", Authorization, DenunciaController.getDenunciaDetalle);
 router.post("/", Authorization, DenunciaController.createDenuncia);
-router.patch("/:id", Authorization, DenunciaController.updateDenuncia);
+router.patch("/:id", DenunciaController.updateDenuncia);
 
 // Export the Router
 module.exports = router;
